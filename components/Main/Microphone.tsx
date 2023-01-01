@@ -89,13 +89,13 @@ function HeaderContents() {
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
   const [isListening, setIsListening] = useState(false);
   const microphoneRef = useRef(null);
-  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return (
-      <div className="mircophone-container">
-        Browser does not Support Speech Recognition.
-      </div>
-    );
-  }
+  // if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
+  //   return (
+  //     <div className="mircophone-container">
+  //       Browser does not Support Speech Recognition.
+  //     </div>
+  //   );
+  // }
   const handleListing = () => {
     toggleMicrophone();
     startRecording();
