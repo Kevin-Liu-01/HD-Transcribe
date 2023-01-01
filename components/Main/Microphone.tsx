@@ -5,6 +5,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import Analyzer from "./MicrophoneComponents/Analyzer.js";
 import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
+import { isMobile } from "react-device-detect";
 
 import Commands from "./MicrophoneComponents/Commands";
 import Instructions from "./MicrophoneComponents/Instructions";
@@ -14,7 +15,8 @@ const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(
 );
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
-if (SpeechRecognition.browserSupportsSpeechRecognition()) {
+if (!isMobile) {
+  console.log("Disabled Polyfill");
   SpeechRecognition.removePolyfill();
 }
 
