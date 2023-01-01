@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Main from "../components/Main/Main";
+import Main from "../components/Main";
 import Footer from "../components/Footer";
 import React from "react";
 function App() {

@@ -18,7 +18,7 @@ function Navbar(props) {
       <Disclosure as="nav">
         {({ open }) => (
           <>
-            <div className="max-w-7xl   mx-4 md:mx-8 xl:mx-auto ">
+            <div className="max-w-7xl px-4 md:mx-4 xl:px-0 lg:mx-auto">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
@@ -41,7 +41,7 @@ function Navbar(props) {
                       <p className="my-auto text-2xl font-extrabold">
                         HD Transcribe
                       </p>
-                      <p className="mt-1 pl-2 bg-gradient-to-r from-gray-400 to-gray-500 rounded-l-full rounded-r-full border border-gray-300 font-semibold text-xs py-1 text-white">
+                      <p className="mt-1 pl-2 select-none bg-gradient-to-r from-gray-400 to-gray-500 rounded-l-full rounded-r-full border border-gray-300 font-semibold text-xs py-1 text-white">
                         <span className="w-auto bg-white rounded-full mr-2">
                           <CogIcon className="h-4 w-4 inline"></CogIcon>
                         </span>
@@ -77,7 +77,7 @@ function Navbar(props) {
               </div>
             </div>
             <Disclosure.Panel className="sm:hidden ">
-              <div className="mx-7 md:px-2 pt-2 pb-3 space-y-1 ">
+              <div className="px-2 pt-2 pb-3 space-y-1 ">
                 {navigation.map((item) => (
                   <Disclosure.Button
                     key={item.name}

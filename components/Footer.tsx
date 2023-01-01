@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="bg-gradient-to-b  from-gray-200 to-gray-400 ">
+    <footer className="bg-gradient-to-b pt-6 from-gray-200 to-gray-400 ">
       <div className="text-center text-white ">
         <div className="text-center text-gray-800 pb-8 ">
           <div className="mb-3">

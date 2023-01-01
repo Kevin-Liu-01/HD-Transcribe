@@ -1,11 +1,11 @@
 function Commands() {
   return (
-    <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer from-speechBlue  rounded-3xl flex flex-col  overflow-hidden ">
+    <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer from-speechBlue  rounded-3xl flex flex-col overflow-hidden">
       <div className=" bg-[url('../assets/wave2.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
       <div className="mt-8 text-4xl leading-8 font-extrabold text-white tracking-tight sm:text-5xl text-center select-none  ">
         Commands
       </div>
-      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-6 md:m-8 p-3  text-sm ">
+      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-6 md:m-8 p-3  text-sm drop-shadow-lg">
         <p className="mb-4">
           There are several commands you can use to interact with the model.
           When you speak a command, it may take a second for the model to
