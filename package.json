@@ -14,11 +14,9 @@
     "os": false
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^3.7.1",
     "deepspeech": "^0.9.3",
