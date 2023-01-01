@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "browser": {
-    "fs": false,
     "path": false,
     "os": false
   },
