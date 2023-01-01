@@ -118,7 +118,7 @@ function HeaderContents() {
               onClick={handleListing}
               className="flex flex-col justify-center items-center	 my-8 "
             >
-              {/* {typeof window !== "undefined" && (
+              {typeof window !== "undefined" && (
                 <ReactMic
                   record={record}
                   className="sound-wave absolute flex"
@@ -127,7 +127,7 @@ function HeaderContents() {
                   strokeColor="#0c7491"
                   backgroundColor="#29c3ef"
                 />
-              )} */}
+              )}
               <div
                 className={`${
                   effect && "animate-wiggle"
