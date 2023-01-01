@@ -1,0 +1,71 @@
+{
+  "name": "hd-transcribe",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.3",
+    "@heroicons/react": "^1.0.5",
+    "@reduxjs/toolkit": "^1.7.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "chart.js": "^3.7.1",
+    "deepspeech": "^0.9.3",
+    "flowbite": "^1.5.3",
+    "flowbite-react": "^0.1.10",
+    "heroicons": "^1.0.5",
+    "katex": "^0.15.3",
+    "next": "12.1.4",
+    "next-auth": "^4.3.4",
+    "node-fetch": "^3.3.0",
+    "pdfobject": "^2.2.8",
+    "react": "18.0.0",
+    "react-chartjs-2": "^4.1.0",
+    "react-countup": "^6.3.1",
+    "react-dom": "18.0.0",
+    "react-mic": "^12.4.6",
+    "react-redux": "^7.2.6",
+    "react-speech-recognition": "^3.10.0",
+    "web-vitals": "^2.1.4",
+    "xhr2": "^0.2.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.14",
+    "@types/react": "^18.0.1",
+    "autoprefixer": "^10.4.4",
+    "eslint": "8.12.0",
+    "eslint-config-next": "12.1.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23",
+    "typescript": "^4.8.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  }
+}
