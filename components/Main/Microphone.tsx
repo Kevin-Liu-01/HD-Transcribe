@@ -169,7 +169,7 @@ function HeaderContents() {
   };
 
   return (
-    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-8  rounded-3xl mt-8">
+    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-8  rounded-3xl">
       <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue from-speechBlue  rounded-3xl   overflow-hidden">
         <div className=" bg-[url('../assets/wave1.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
 

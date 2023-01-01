@@ -7,7 +7,7 @@ export default function Document() {
 
         <meta
           name="description"
-          content="HD Transcribe is an application that aims to provide a way for individuals with Huntington's Disease to communicate.."
+          content="HD Transcribe is an application that aims to provide a way for individuals with Huntington's Disease to communicate."
         />
 
         <link rel="apple-touch-icon" href="./favicon.png" />

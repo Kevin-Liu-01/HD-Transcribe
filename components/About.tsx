@@ -4,12 +4,11 @@ import React from "react";
 
 function About() {
   return (
-    <div className="min-h-screen bg-gradient-to-b ">
-      {/*Navbar*/}
-      <Navbar page="About" />
-      {/*header section 2*/}
-      <div className=" bg-gradient-to-b mt-8 from-white to-gray-200">
-        <div className=" max-w-7xl mx-4 md:mx-8 xl:mx-auto">
+    <div className="">
+      <div className="min-h-screen from-white to-gray-200 bg-gradient-to-b pb-8 md:pb-0">
+        {" "}
+        <Navbar page="About" />
+        <div className=" max-w-7xl mx-4 md:mx-8 xl:mx-auto pt-8">
           <div className="">
             <h2 className="text-lg font-semibold text-plantGreen">
               About HD Transcribe

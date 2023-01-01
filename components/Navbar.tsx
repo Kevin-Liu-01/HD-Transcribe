@@ -14,7 +14,7 @@ function Navbar(props) {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div className="bg-white py-8">
+    <div className="bg-white py-8 drop-shadow-sm">
       <Disclosure as="nav">
         {({ open }) => (
           <>
