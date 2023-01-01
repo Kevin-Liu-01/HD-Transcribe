@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
-import { ReactMic } from "react-mic";
 import { MicrophoneIcon } from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import Analyzer from "./Analyzer.js";
 
 import Commands from "./Commands";
 import Instructions from "./Instructions";
@@ -13,7 +13,28 @@ function HeaderContents() {
   const [effect, setEffect] = useState(true);
   const [record, setRecord] = useState(false);
   const [counter, setCounter] = useState(0);
+  const [audio, setAudio] = useState(null);
 
+  const getMicrophone = async () => {
+    const audio = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: false,
+    });
+    setAudio(audio);
+  };
+
+  const stopMicrophone = () => {
+    audio.getTracks().forEach((track) => track.stop());
+    setAudio(null);
+  };
+
+  const toggleMicrophone = () => {
+    if (record) {
+      stopMicrophone();
+    } else {
+      getMicrophone();
+    }
+  };
   const commands = [
     {
       command: "go to *",
@@ -76,6 +97,7 @@ function HeaderContents() {
     );
   }
   const handleListing = () => {
+    toggleMicrophone();
     startRecording();
     setIsListening(true);
     microphoneRef.current.classList.add("listening");
@@ -84,6 +106,8 @@ function HeaderContents() {
     });
   };
   const stopHandle = () => {
+    toggleMicrophone();
+
     stopRecording();
     setIsListening(false);
     microphoneRef.current.classList.remove("listening");
@@ -109,25 +133,16 @@ function HeaderContents() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 z-10">
           <div>
+            {" "}
             <div className="text-4xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
               Begin Recording...
             </div>
-
             <div
               ref={microphoneRef}
               onClick={handleListing}
               className="flex flex-col justify-center items-center	 my-8 "
             >
-              {typeof window !== "undefined" && (
-                <ReactMic
-                  record={record}
-                  className="sound-wave absolute flex"
-                  // onStop={onStop}
-                  // onData={onData}
-                  strokeColor="#0c7491"
-                  backgroundColor="#29c3ef"
-                />
-              )}
+              {audio ? <Analyzer audio={audio} /> : ""}
               <div
                 className={`${
                   effect && "animate-wiggle"
