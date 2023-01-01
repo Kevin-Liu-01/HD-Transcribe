@@ -1,3 +1,5 @@
+import { isMobile } from "react-device-detect";
+
 function Commands() {
   return (
     <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer from-speechBlue  rounded-3xl flex flex-col overflow-hidden">
@@ -8,8 +10,9 @@ function Commands() {
       <div className="bg-white flex flex-col grow z-10 rounded-2xl m-6 md:m-8 p-3  text-sm drop-shadow-lg">
         <p className="mb-4">
           There are several commands you can use to interact with the model.
-          When you speak a command, it may take a second for the model to
-          respond.
+          When you say a command, it may take a second for the model to respond.{" "}
+          {isMobile &&
+            "On mobile devices, it may be difficult to get certain commands."}
         </p>
         <div className="grid grid-cols-2 grow">
           <span className="font-bold text-speechBluer">

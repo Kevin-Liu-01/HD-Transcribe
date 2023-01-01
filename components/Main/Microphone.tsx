@@ -169,11 +169,11 @@ function HeaderContents() {
   };
 
   return (
-    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-4 xl:px-0 lg:mx-auto gap-4 md:gap-8  rounded-3xl mt-8">
+    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-8  rounded-3xl mt-8">
       <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue from-speechBlue  rounded-3xl   overflow-hidden">
         <div className=" bg-[url('../assets/wave1.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 z-10 grow">
           <div>
             <div className="text-4xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
               Begin Recording...
@@ -212,7 +212,7 @@ function HeaderContents() {
             </div>
           </div>
 
-          <div className="bg-gray-50 z-10 ml-6 lg:ml-0 mr-6 lg:mr-8 rounded-3xl flex flex-col grow">
+          <div className="bg-gray-50 z-10 ml-6 lg:ml-0 mr-6 lg:mr-8 rounded-2xl lg:rounded-3xl flex flex-col grow">
             <div className="p-4">
               <p className="font-semibold">Transcription:</p>
               {transcript ? (
