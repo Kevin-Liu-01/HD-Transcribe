@@ -2,7 +2,7 @@ import { isMobile } from "react-device-detect";
 
 function Commands() {
   return (
-    <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer from-speechBlue  rounded-3xl flex flex-col overflow-hidden">
+    <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer from-speechBlue  rounded-[2rem]  flex flex-col overflow-hidden">
       <div className=" bg-[url('../assets/wave2.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
       <div className="mt-8 text-4xl leading-8 font-extrabold text-white tracking-tight sm:text-5xl text-center select-none  ">
         Commands

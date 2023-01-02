@@ -30,13 +30,16 @@ function Navbar(props) {
                       <MenuIcon className="block h-6 w-6" aria-hidden="true" />
                     )}
                   </Disclosure.Button>
-                </div>{" "}
+                </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <a className="flex-shrink-0 flex">
                     {/*browser logo begin*/}
-                    <div className=" hidden sm:flex h-16 w-16 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white">
+                    <Link
+                      href="/"
+                      className=" hidden sm:flex h-16 w-16 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                    >
                       <ChatIcon className="h-8 w-8"></ChatIcon>
-                    </div>
+                    </Link>
                     <div className="ml-4 sm:inline hidden">
                       <p className="my-auto text-2xl font-extrabold">
                         HD Transcribe
@@ -45,14 +48,17 @@ function Navbar(props) {
                         <span className="w-auto bg-white rounded-full mr-2">
                           <CogIcon className="h-4 w-4 inline"></CogIcon>
                         </span>
-                        Pre-Alpha Build 1.1.0
+                        Pre-Alpha Build 1.2.1
                       </p>
                     </div>
                     {/*logo end*/}
                     {/*mobile logo begin*/}
-                    <div className="flex sm:hidden h-20 w-20  drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white">
+                    <Link
+                      href="/"
+                      className="flex sm:hidden h-20 w-20  drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                    >
                       <ChatIcon className="h-12 w-12"></ChatIcon>
-                    </div>
+                    </Link>
                     {/*logo end*/}
                   </a>
                   <div className="hidden sm:block sm:ml-auto my-2">
@@ -63,9 +69,9 @@ function Navbar(props) {
                           href={item.href}
                           className={classNames(
                             item.name === props.page
-                              ? "hover:bg-speechBlueLight text-gray-900 border border-t-0 border-l-0 border-r-0 border-b-4 border-speechBlue "
-                              : "text-gray-500 hover:bg-gray-300 hover:text-gray-700 rounded-b-md",
-                            "px-3 py-2 text-lg font-medium rounded-t-md transition duration-200 ease-in-out"
+                              ? " text-gray-900 border border-t-0 border-l-0 border-r-0 border-b-4 border-speechBlue hover:text-speechBlue"
+                              : "text-gray-500 hover:text-speechBlueDark rounded-b-md",
+                            "px-3 pt-2 pb-1 text-lg font-medium rounded-t-md transition duration-200 ease-in-out"
                           )}
                         >
                           {item.name}

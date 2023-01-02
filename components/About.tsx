@@ -5,12 +5,12 @@ import React from "react";
 function About() {
   return (
     <div className="">
-      <div className="min-h-screen from-white to-gray-200 bg-gradient-to-b pb-8 md:pb-0">
+      <div className="min-h-screen from-gray-100 to-gray-200 bg-gradient-to-b pb-8 md:pb-0">
         {" "}
         <Navbar page="About" />
         <div className=" max-w-7xl mx-4 md:mx-8 xl:mx-auto pt-8">
           <div className="">
-            <h2 className="text-lg font-semibold text-plantGreen">
+            <h2 className="text-lg font-semibold text-speechBlueDark">
               About HD Transcribe
             </h2>
             <p className="mt-2 text-3xl font-bold leading-8 tracking-tight text-gray-900 sm:text-4xl">

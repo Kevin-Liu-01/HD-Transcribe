@@ -40,13 +40,6 @@ function HeaderContents() {
     setAudio(null);
   };
 
-  const toggleMicrophone = () => {
-    if (record) {
-      stopMicrophone();
-    } else {
-      getMicrophone();
-    }
-  };
   const commands = [
     {
       command: "go to *",
@@ -139,38 +132,41 @@ function HeaderContents() {
   const microphoneRef = useRef(null);
 
   const handleListing = () => {
-    toggleMicrophone();
-    startRecording();
-    setIsListening(true);
-    microphoneRef.current.classList.add("listening");
-    SpeechRecognition.startListening({
-      continuous: true,
-    });
+    if (!isListening) {
+      startRecording();
+      setIsListening(true);
+      microphoneRef.current.classList.add("listening");
+      SpeechRecognition.startListening({
+        continuous: true,
+      });
+    }
   };
-  const stopHandle = () => {
-    toggleMicrophone();
-
-    stopRecording();
-    setIsListening(false);
-    microphoneRef.current.classList.remove("listening");
-    SpeechRecognition.stopListening();
+  const stopHandle = async () => {
+    await stopRecording();
+    await setIsListening(false);
+    await microphoneRef.current.classList.remove("listening");
+    await SpeechRecognition.stopListening();
   };
-  const handleReset = () => {
-    stopHandle();
+  const handleReset = async () => {
+    if (isListening) {
+      await stopHandle();
+    }
     resetTranscript();
   };
 
   const startRecording = () => {
+    getMicrophone();
     setRecord(true);
   };
 
   const stopRecording = () => {
+    stopMicrophone();
     setRecord(false);
   };
 
   return (
-    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-8  rounded-3xl">
-      <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue from-speechBlue  rounded-3xl   overflow-hidden">
+    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
+      <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue from-speechBlue  rounded-[2rem]   overflow-hidden">
         <div className=" bg-[url('../assets/wave1.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 z-10 grow">
@@ -178,27 +174,25 @@ function HeaderContents() {
             <div className="text-4xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
               Begin Recording...
             </div>
-            <div
-              ref={microphoneRef}
-              onClick={handleListing}
-              className="flex flex-col justify-center items-center	 my-4 "
-            >
+            <div className="flex flex-col justify-center items-center	 my-4 ">
               {counter !== 0 && (
                 <div className="text-black bg-gradient-to-r from-gray-100 to-gray-200 rounded-full border p-2 py-0">
                   Counter: {counter}
                 </div>
               )}
               {audio ? <Analyzer audio={audio} /> : ""}
-              <div
-                className={`${
-                  effect && "animate-wiggle"
-                }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue hover:bg-speechBlueDark w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
-                onClick={() => {
-                  setEffect(true);
-                }}
-                onAnimationEnd={() => setEffect(false)}
-              >
-                <MicrophoneIcon className="w-[50%]"></MicrophoneIcon>{" "}
+              <div ref={microphoneRef} onClick={handleListing} className="">
+                <div
+                  className={`${
+                    effect && "animate-wiggle"
+                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue hover:bg-speechBlueDark w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
+                  onClick={() => {
+                    setEffect(true);
+                  }}
+                  onAnimationEnd={() => setEffect(false)}
+                >
+                  <MicrophoneIcon className="w-[50%]"></MicrophoneIcon>
+                </div>
               </div>
               <div className="mt-4 text-white select-none">
                 {isListening ? (
@@ -214,30 +208,30 @@ function HeaderContents() {
 
           <div className="bg-gray-50 z-10 ml-6 lg:ml-0 mr-6 lg:mr-8 rounded-2xl lg:rounded-3xl flex flex-col grow">
             <div className="p-4">
-              <p className="font-semibold">Transcription:</p>
+              <p className="font-semibold select-none">Transcription:</p>
               {transcript ? (
                 <>
                   <div className="pb-4 ">{transcript}</div>
                   <button
-                    className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2"
+                    className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2"
                     onClick={handleReset}
                   >
                     Reset
                   </button>
                 </>
               ) : (
-                <div className="text-gray-400 italic pb-4">
+                <div className="text-gray-400 italic pb-4 select-none">
                   Click the microphone to begin recording!
                 </div>
-              )}{" "}
+              )}
               {isListening && (
                 <button
-                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-4 rounded-xl p-2"
+                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-4 rounded-xl p-2 select-none"
                   onClick={stopHandle}
                 >
                   Stop
                 </button>
-              )}{" "}
+              )}
             </div>
           </div>
         </div>

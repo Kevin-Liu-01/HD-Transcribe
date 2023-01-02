@@ -7,7 +7,7 @@ function Home() {
   return (
     <div id="background" className="bg-gray-300 ">
       <div
-        className="min-h-screen  pb-8 bg-[url('https://www.freepnglogos.com/uploads/wave-png/abstract-blue-wave-decoration-png-background-1.png')] bg-cover"
+        className="min-h-screen transition duration-150 pb-8 bg-[url('https://www.freepnglogos.com/uploads/wave-png/abstract-blue-wave-decoration-png-background-1.png')] bg-cover"
         style={{
           backgroundColor: "rgba(255,255,255,0.6)",
           backgroundBlendMode: "lighten",
