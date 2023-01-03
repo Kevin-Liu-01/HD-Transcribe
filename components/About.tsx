@@ -8,7 +8,7 @@ function About() {
       <div className="min-h-screen from-gray-100 to-gray-200 bg-gradient-to-b pb-8 md:pb-0">
         {" "}
         <Navbar page="About" />
-        <div className=" max-w-7xl mx-4 md:mx-8 xl:mx-auto pt-8">
+        <div className=" max-w-7xl px-4 md:mx-2 2xl:px-0 lg:mx-auto pt-8">
           <div className="">
             <h2 className="text-lg font-semibold text-speechBlueDark">
               About HD Transcribe
