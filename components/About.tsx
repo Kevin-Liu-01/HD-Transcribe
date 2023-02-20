@@ -41,7 +41,7 @@ function About() {
                   </p>
                 </dt>
                 <dd className="mt-2 ml-16 text-base text-gray-900">
-                  HD Transcribe provdies a speech-to-text function that allows
+                  HD Transcribe provides a speech-to-text function that allows
                   patients to communicate with others more easily. As the
                   disease progresses, individuals may have difficulty speaking
                   clearly or may have difficulty controlling the movements of
