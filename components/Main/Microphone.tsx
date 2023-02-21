@@ -19,7 +19,7 @@ const openai = new OpenAIApi(configuration);
 
 //Polyfill
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(
-  process.env.NEXT_PUBLIC_SPEECHLY_API
+  "f2d4d05f-94ee-4a2c-bfd9-ad6304759fcc"
 );
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
