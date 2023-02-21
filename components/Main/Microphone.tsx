@@ -25,7 +25,7 @@ const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
 if (!isMobile) {
-  console.log("Disabled Polyfill");
+  // console.log("Disabled Polyfill");
   SpeechRecognition.removePolyfill();
 }
 
@@ -265,7 +265,7 @@ function HeaderContents() {
                 <>
                   <div className="pb-4 ">{transcript}</div>
                   <button
-                    className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2"
+                    className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
                     onClick={handleReset}
                   >
                     Reset
@@ -278,14 +278,14 @@ function HeaderContents() {
               )}
               {isListening && (
                 <button
-                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-4 rounded-xl p-2 select-none"
+                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-4 rounded-xl p-2 select-none mr-1"
                   onClick={stopHandle}
                 >
                   Stop
                 </button>
               )}{" "}
               <button
-                className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
+                className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
                 onClick={() => {
                   setActivateAI(!activateAI);
                 }}
@@ -297,24 +297,27 @@ function HeaderContents() {
                 ChatGPT
               </button>
               {activateAI && (
-                <div className="font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block">
+                <div className=" font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block">
                   ChatGPT will respond!
                 </div>
               )}
               {activateAI && (
                 // chatgpts response
-                <div className="bg-gray-200 flex flex-1 rounded-xl p-4 mt-2  shadow-inner">
+                <div className="bg-gray-200 rounded-xl p-4 mt-2 sm:flex shadow-inner">
                   <img
                     src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
-                    className="h-5 w-5 inline mt-0.5 mr-2"
+                    className="h-5 w-5 mt-0.5 mr-2 inline"
                   ></img>
-                  <p className="font-semibold select-none">ChatGPT:</p>
-                  <div className="ml-2 ">
+                  <p className="font-semibold select-none inline">ChatGPT:</p>
+                  <div className="sm:ml-2 flex sm:mt-0 mt-2">
                     {record ? (
-                      <div className="italic text-gray-500">...</div>
+                      <div className="italic text-gray-500 inline-block sm:flex">
+                        ...
+                      </div>
                     ) : (
                       response
                     )}
+                    fcccccccc
                   </div>
                 </div>
               )}
