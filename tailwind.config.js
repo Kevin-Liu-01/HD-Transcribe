@@ -17,6 +17,7 @@ module.exports = {
         speechBlueDarker: "#209ec2",
         speechBluer: "#007FFF",
         speechBlueLight: "#ADD8E6",
+        speechButton: "#1fa7ce",
       },
       keyframes: {
         wiggle: {

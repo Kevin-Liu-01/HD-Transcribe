@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import { MicrophoneIcon } from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -30,7 +30,6 @@ if (!isMobile) {
 
 function HeaderContents() {
   //Transcription and Audio
-  const [transcription, setTranscription] = useState("");
   const [record, setRecord] = useState(false);
   const [audio, setAudio] = useState(null);
 
@@ -43,18 +42,20 @@ function HeaderContents() {
   const [activateAI, setActivateAI] = useState(false);
 
   const handleAI = async () => {
-    // Generate a response with OpenAI
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: transcript,
-      temperature: 0,
-      max_tokens: 1000,
-      top_p: 1,
-      frequency_penalty: 0.5,
-      presence_penalty: 0,
-    });
-    console.log(completion.data.choices);
-    setResponse(completion.data.choices[0].text);
+    if (transcript) {
+      // Generate a response with OpenAI
+      const completion = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: transcript,
+        temperature: 0,
+        max_tokens: 1000,
+        top_p: 1,
+        frequency_penalty: 0.5,
+        presence_penalty: 0,
+      });
+      // console.log(completion.data.choices);
+      setResponse(completion.data.choices[0].text);
+    }
   };
 
   //Microphone
@@ -207,6 +208,23 @@ function HeaderContents() {
       handleAI();
     }
   };
+  function reveal() {
+    var reveals = document.querySelectorAll(".reveal");
+
+    for (var i = 0; i < reveals.length; i++) {
+      var windowHeight = window.innerHeight;
+      var elementTop = reveals[i].getBoundingClientRect().top;
+      // var elementVisible = 10;
+
+      if (elementTop < windowHeight) {
+        reveals[i].classList.add("active");
+      }
+      // else {
+      // 	reveals[i].classList.remove("active");
+      // }
+    }
+  }
+  window.addEventListener("click", reveal);
 
   return (
     <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
@@ -229,7 +247,7 @@ function HeaderContents() {
                 <div
                   className={`${
                     effect && "animate-wiggle"
-                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechBlueDark hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
+                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechButton hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
                   onClick={() => {
                     setEffect(true);
                   }}
@@ -238,7 +256,7 @@ function HeaderContents() {
                   {activateAI ? (
                     <img
                       src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                      className="w-[50%] fill-current text-white svgfill"
+                      className="w-[50%] fill-current svgfill"
                     ></img>
                   ) : (
                     <MicrophoneIcon className="w-[50%]"></MicrophoneIcon>
@@ -262,7 +280,7 @@ function HeaderContents() {
               <p className="font-semibold select-none">Transcription:</p>
               {transcript ? (
                 <>
-                  <div className="mb-4 rounded-lg overflow-hidden bg-gray-100 shadow-inner">
+                  <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
                     <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 pb-4">
                       {transcript}
                     </div>
@@ -275,7 +293,7 @@ function HeaderContents() {
                   </button>
                 </>
               ) : (
-                <div className="mb-4 rounded-lg overflow-hidden bg-gray-100 shadow-inner">
+                <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
                   <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 text-gray-400 italic pb-4 select-none">
                     Click the microphone to begin recording!
                   </div>
@@ -312,14 +330,14 @@ function HeaderContents() {
                 </button>
               )}
               {activateAI && (
-                <div className=" font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block">
+                <div className=" font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block reveal">
                   ChatGPT will respond!
                 </div>
               )}
               {activateAI && (
                 // chatgpts response
-                <div className="bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden">
-                  <div className="max-h-40 sm:max-h-96 overflow-y-scroll scrollbar p-4  sm:flex">
+                <div className="bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden reveal">
+                  <div className="max-h-40 overflow-y-scroll scrollbar p-4  sm:flex">
                     <img
                       src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
                       className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"

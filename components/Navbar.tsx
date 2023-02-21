@@ -42,7 +42,7 @@ function Navbar(props) {
                     {/*browser logo begin*/}
                     <Link
                       href="/"
-                      className=" hidden sm:flex h-16 w-16 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                      className=" hidden sm:flex h-16 w-16 hover:scale-105 transition duration-200 ease-in-out shadow-md shadow-speechBlueDark/50 bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
                     >
                       <ChatIcon className="h-8 w-8"></ChatIcon>
                     </Link>

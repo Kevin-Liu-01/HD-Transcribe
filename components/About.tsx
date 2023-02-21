@@ -7,7 +7,6 @@ function About(props) {
   return (
     <div className="">
       <div className="min-h-screen from-gray-100 dark:from-gray-800 dark:to-gray-900 to-gray-200 bg-gradient-to-b pb-8 md:pb-0">
-        {" "}
         <div className=" max-w-7xl px-4 md:mx-2 2xl:px-0 lg:mx-auto pt-8">
           <div className="">
             <h2 className="text-lg font-semibold text-speechBlueDark">
@@ -28,7 +27,7 @@ function About(props) {
               between these patients and their loved ones.
             </p>
           </div>
-          <div className="border border-x-0 border-t-0 border-b-2 border-gray-300 mt-10"></div>
+          <div className="border border-x-0 border-t-0 border-b-2 border-gray-300 dark:border-gray-700 mt-10"></div>
           <div className="mt-12 rounded-xl">
             <dl className="mx-4 space-y-10 md:grid md:grid-rows-3 md:gap-x-4 md:gap-y-10 md:space-y-0">
               <div className="relative text-gray-900 dark:text-white">
