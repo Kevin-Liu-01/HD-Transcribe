@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import axios from "axios";
 import { MicrophoneIcon } from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -14,13 +13,13 @@ import Instructions from "./MicrophoneComponents/Instructions";
 //OpenAI Integration
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.NEXT_PUBLIC_OPENAI_API,
 });
 const openai = new OpenAIApi(configuration);
 
 //Polyfill
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(
-  "f2d4d05f-94ee-4a2c-bfd9-ad6304759fcc"
+  process.env.NEXT_PUBLIC_SPEECHLY_API
 );
 SpeechRecognition.applyPolyfill(SpeechlySpeechRecognition);
 
@@ -211,8 +210,8 @@ function HeaderContents() {
 
   return (
     <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
-      <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue from-speechBlue  rounded-[2rem]   overflow-hidden">
-        <div className=" bg-[url('../assets/wave1.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
+      <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark  rounded-[2rem]   overflow-hidden">
+        <div className=" bg-[url('../assets/wave1.jpg')] bg-cover dark:opacity-30 opacity-20 h-full w-full absolute "></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 z-10 grow">
           <div>
@@ -230,7 +229,7 @@ function HeaderContents() {
                 <div
                   className={`${
                     effect && "animate-wiggle"
-                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue hover:bg-speechBlueDark w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
+                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechBlueDark hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
                   onClick={() => {
                     setEffect(true);
                   }}
@@ -263,7 +262,11 @@ function HeaderContents() {
               <p className="font-semibold select-none">Transcription:</p>
               {transcript ? (
                 <>
-                  <div className="pb-4 ">{transcript}</div>
+                  <div className="mb-4 rounded-lg overflow-hidden bg-gray-100 shadow-inner">
+                    <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 pb-4">
+                      {transcript}
+                    </div>
+                  </div>
                   <button
                     className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
                     onClick={handleReset}
@@ -272,8 +275,10 @@ function HeaderContents() {
                   </button>
                 </>
               ) : (
-                <div className="text-gray-400 italic pb-4 select-none">
-                  Click the microphone to begin recording!
+                <div className="mb-4 rounded-lg overflow-hidden bg-gray-100 shadow-inner">
+                  <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 text-gray-400 italic pb-4 select-none">
+                    Click the microphone to begin recording!
+                  </div>
                 </div>
               )}
               {isListening && (
@@ -284,18 +289,28 @@ function HeaderContents() {
                   Stop
                 </button>
               )}{" "}
-              <button
-                className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
-                onClick={() => {
-                  setActivateAI(!activateAI);
-                }}
-              >
-                <img
-                  src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                  className="h-4 w-4 inline mb-1 mr-1"
-                ></img>
-                ChatGPT
-              </button>
+              {record ? (
+                <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
+                  <img
+                    src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                    className="h-4 w-4 inline mb-1 mr-1"
+                  ></img>
+                  ChatGPT
+                </button>
+              ) : (
+                <button
+                  className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
+                  onClick={() => {
+                    setActivateAI(!activateAI);
+                  }}
+                >
+                  <img
+                    src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                    className="h-4 w-4 inline mb-1 mr-1"
+                  ></img>
+                  ChatGPT
+                </button>
+              )}
               {activateAI && (
                 <div className=" font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block">
                   ChatGPT will respond!
@@ -303,21 +318,22 @@ function HeaderContents() {
               )}
               {activateAI && (
                 // chatgpts response
-                <div className="bg-gray-200 rounded-xl p-4 mt-2 sm:flex shadow-inner">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
-                    className="h-5 w-5 mt-0.5 mr-2 inline"
-                  ></img>
-                  <p className="font-semibold select-none inline">ChatGPT:</p>
-                  <div className="sm:ml-2 flex sm:mt-0 mt-2">
-                    {record ? (
-                      <div className="italic text-gray-500 inline-block sm:flex">
-                        ...
-                      </div>
-                    ) : (
-                      response
-                    )}
-                    fcccccccc
+                <div className="bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden">
+                  <div className="max-h-40 sm:max-h-96 overflow-y-scroll scrollbar p-4  sm:flex">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                      className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                    ></img>
+                    <p className="font-semibold select-none inline">ChatGPT:</p>
+                    <div className="sm:ml-2 flex sm:mt-0 mt-2">
+                      {record ? (
+                        <div className="italic text-gray-500 inline-block sm:flex">
+                          ...
+                        </div>
+                      ) : (
+                        response
+                      )}
+                    </div>
                   </div>
                 </div>
               )}

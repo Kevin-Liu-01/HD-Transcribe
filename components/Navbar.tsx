@@ -76,7 +76,7 @@ function Navbar(props) {
                           className={classNames(
                             item.name === props.page
                               ? " text-gray-900 border border-t-0 border-l-0 border-r-0 border-b-4 border-speechBlue hover:text-speechBlue dark:text-white"
-                              : "text-gray-500 hover:text-speechBlueDark rounded-b-md dark:text-gray-400",
+                              : "text-gray-500 hover:text-speechBlueDark rounded-b-md dark:text-gray-400 dark:hover:text-speechBlue",
                             "px-3 pt-2 pb-1 text-lg font-medium rounded-t-md transition duration-200 ease-in-out"
                           )}
                         >
@@ -88,12 +88,12 @@ function Navbar(props) {
                 </div>
                 <div className="md:pl-4 md:mr-2 flex-shrink-0 sm:ml-4 flex justify-self-end items-center select-none ">
                   <button
-                    className="flex bg-gray-300 dark:bg-gray-700 rounded-xl px-1 py-1 hover:bg-slate-400  text-white dark:hover:text-gray-800 hover:text-yellow-400 dark:hover:bg-slate-600"
+                    className="flex bg-gray-300 dark:bg-gray-700 rounded-xl px-1 py-1 hover:bg-gray-400 dark:text-blue-500 text-white dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
                     onClick={() => props.setDark(!props.dark)}
                   >
                     <div className="h-9 w-9 flex items-center justify-center">
                       {props.dark ? (
-                        <MoonIcon className="h-6 w-6  text-blue-400"></MoonIcon>
+                        <MoonIcon className="h-6 w-6 "></MoonIcon>
                       ) : (
                         <SunIcon className="h-6 w-6 "></SunIcon>
                       )}

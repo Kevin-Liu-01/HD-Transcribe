@@ -14,6 +14,7 @@ module.exports = {
       colors: {
         speechBlue: "#00B7EB",
         speechBlueDark: "#00a4d3",
+        speechBlueDarker: "#209ec2",
         speechBluer: "#007FFF",
         speechBlueLight: "#ADD8E6",
       },

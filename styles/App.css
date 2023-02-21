@@ -87,6 +87,13 @@ body {
     contrast(100%);
 }
 
+.svgfill-gray {
+  /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
+    brightness(118%) contrast(119%); */
+  filter: invert(90%) sepia(74%) saturate(0%) hue-rotate(0deg) brightness(100%)
+    contrast(100%);
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 15px;
