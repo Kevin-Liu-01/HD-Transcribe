@@ -1,17 +1,37 @@
 import Head from "next/head";
 import "../styles/App.css";
 import "../styles/globals.css";
+import { useState, useEffect } from "react";
+
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 import { SessionProvider } from "next-auth/react";
 //All metadata is in THIS component.
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [dark, setDark] = useState(false);
+  const [page, setPage] = useState("");
+
+  //Extract dark mode state from local storage
+  useEffect(() => {
+    console.log(page + ":" + JSON.parse(localStorage.getItem("mode")));
+    setDark(JSON.parse(localStorage.getItem("mode")));
+  }, []);
+
+  //Set dark mode state in local storage
+  useEffect(() => {
+    console.log(page + ":" + JSON.parse(localStorage.getItem("mode")));
+
+    localStorage.setItem("mode", dark);
+  }, [dark]);
+
   return (
     <SessionProvider session={session}>
       <Head>
         <title>HD Transcribe</title>
       </Head>
       <noscript>You need to enable JavaScript to run this app.</noscript>
-
       <div id="root " />
       {/*
                 This HTML file is a template.
@@ -23,7 +43,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 To begin the development, run `npm start` or `yarn start`.
                 To create a production bundle, use `npm run build` or `yarn build`.
             */}
-      <Component {...pageProps} />
+      <div className={dark ? "dark" : ""}>
+        <Navbar page={page} dark={dark} setDark={setDark}></Navbar>
+        <Component
+          {...pageProps}
+          dark={dark}
+          setDark={setDark}
+          setPage={setPage}
+        />
+        <Footer dark={dark} />
+      </div>
     </SessionProvider>
   );
 }

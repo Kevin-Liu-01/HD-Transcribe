@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
 import { MicrophoneIcon } from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -10,6 +11,14 @@ import { isMobile } from "react-device-detect";
 import Commands from "./MicrophoneComponents/Commands";
 import Instructions from "./MicrophoneComponents/Instructions";
 
+//OpenAI Integration
+const { Configuration, OpenAIApi } = require("openai");
+const configuration = new Configuration({
+  apiKey: "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",
+});
+const openai = new OpenAIApi(configuration);
+
+//Polyfill
 const SpeechlySpeechRecognition = createSpeechlySpeechRecognition(
   "f2d4d05f-94ee-4a2c-bfd9-ad6304759fcc"
 );
@@ -21,12 +30,35 @@ if (!isMobile) {
 }
 
 function HeaderContents() {
+  //Transcription and Audio
   const [transcription, setTranscription] = useState("");
-  const [effect, setEffect] = useState(true);
   const [record, setRecord] = useState(false);
-  const [counter, setCounter] = useState(0);
   const [audio, setAudio] = useState(null);
 
+  //Wiggling and Counter
+  const [effect, setEffect] = useState(true);
+  const [counter, setCounter] = useState(0);
+
+  //OpenAI integration
+  const [response, setResponse] = useState("");
+  const [activateAI, setActivateAI] = useState(false);
+
+  const handleAI = async () => {
+    // Generate a response with OpenAI
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: transcript,
+      temperature: 0,
+      max_tokens: 1000,
+      top_p: 1,
+      frequency_penalty: 0.5,
+      presence_penalty: 0,
+    });
+    console.log(completion.data.choices);
+    setResponse(completion.data.choices[0].text);
+  };
+
+  //Microphone
   const getMicrophone = async () => {
     const audio = await navigator.mediaDevices.getUserMedia({
       audio: true,
@@ -126,6 +158,12 @@ function HeaderContents() {
         stopHandle();
       },
     },
+    {
+      command: "activate chat GPT",
+      callback: () => {
+        setActivateAI(true);
+      },
+    },
   ];
   const { transcript, resetTranscript } = useSpeechRecognition({ commands });
   const [isListening, setIsListening] = useState(false);
@@ -157,11 +195,18 @@ function HeaderContents() {
   const startRecording = () => {
     getMicrophone();
     setRecord(true);
+    setResponse("");
+    if (activateAI) {
+      resetTranscript();
+    }
   };
 
   const stopRecording = () => {
     stopMicrophone();
     setRecord(false);
+    if (activateAI) {
+      handleAI();
+    }
   };
 
   return (
@@ -191,7 +236,14 @@ function HeaderContents() {
                   }}
                   onAnimationEnd={() => setEffect(false)}
                 >
-                  <MicrophoneIcon className="w-[50%]"></MicrophoneIcon>
+                  {activateAI ? (
+                    <img
+                      src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                      className="w-[50%] fill-current text-white svgfill"
+                    ></img>
+                  ) : (
+                    <MicrophoneIcon className="w-[50%]"></MicrophoneIcon>
+                  )}
                 </div>
               </div>
               <div className="mt-4 text-white select-none">
@@ -231,6 +283,40 @@ function HeaderContents() {
                 >
                   Stop
                 </button>
+              )}{" "}
+              <button
+                className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
+                onClick={() => {
+                  setActivateAI(!activateAI);
+                }}
+              >
+                <img
+                  src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
+                  className="h-4 w-4 inline mb-1 mr-1"
+                ></img>
+                ChatGPT
+              </button>
+              {activateAI && (
+                <div className="font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block">
+                  ChatGPT will respond!
+                </div>
+              )}
+              {activateAI && (
+                // chatgpts response
+                <div className="bg-gray-200 flex flex-1 rounded-xl p-4 mt-2  shadow-inner">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                    className="h-5 w-5 inline mt-0.5 mr-2"
+                  ></img>
+                  <p className="font-semibold select-none">ChatGPT:</p>
+                  <div className="ml-2 ">
+                    {record ? (
+                      <div className="italic text-gray-500">...</div>
+                    ) : (
+                      response
+                    )}
+                  </div>
+                </div>
               )}
             </div>
           </div>

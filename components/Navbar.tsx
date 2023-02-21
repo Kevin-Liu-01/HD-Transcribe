@@ -1,7 +1,13 @@
 import { Disclosure } from "@headlessui/react";
-import { MenuIcon, XIcon, ChatIcon, CogIcon } from "@heroicons/react/outline";
+import {
+  MenuIcon,
+  XIcon,
+  ChatIcon,
+  CogIcon,
+  SunIcon,
+  MoonIcon,
+} from "@heroicons/react/outline";
 import React from "react";
-import { useState } from "react";
 import Link from "next/link";
 
 const navigation = [
@@ -14,7 +20,7 @@ function Navbar(props) {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <div className="bg-white py-8 drop-shadow-sm">
+    <nav className="bg-white dark:bg-gray-900 py-8 drop-shadow-sm dark:text-white">
       <Disclosure as="nav">
         {({ open }) => (
           <>
@@ -31,7 +37,7 @@ function Navbar(props) {
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div className="flex-1 flex ml-12 sm:ml-0 items-center justify-center sm:items-stretch sm:justify-start">
                   <a className="flex-shrink-0 flex">
                     {/*browser logo begin*/}
                     <Link
@@ -48,7 +54,7 @@ function Navbar(props) {
                         <span className="w-auto bg-white rounded-full mr-2">
                           <CogIcon className="h-4 w-4 inline"></CogIcon>
                         </span>
-                        Pre-Alpha Build 1.2.1
+                        Production Build 1.2
                       </p>
                     </div>
                     {/*logo end*/}
@@ -69,8 +75,8 @@ function Navbar(props) {
                           href={item.href}
                           className={classNames(
                             item.name === props.page
-                              ? " text-gray-900 border border-t-0 border-l-0 border-r-0 border-b-4 border-speechBlue hover:text-speechBlue"
-                              : "text-gray-500 hover:text-speechBlueDark rounded-b-md",
+                              ? " text-gray-900 border border-t-0 border-l-0 border-r-0 border-b-4 border-speechBlue hover:text-speechBlue dark:text-white"
+                              : "text-gray-500 hover:text-speechBlueDark rounded-b-md dark:text-gray-400",
                             "px-3 pt-2 pb-1 text-lg font-medium rounded-t-md transition duration-200 ease-in-out"
                           )}
                         >
@@ -79,6 +85,20 @@ function Navbar(props) {
                       ))}
                     </div>
                   </div>
+                </div>
+                <div className="md:pl-4 md:mr-2 flex-shrink-0 sm:ml-4 flex justify-self-end items-center select-none ">
+                  <button
+                    className="flex bg-gray-300 dark:bg-gray-700 rounded-xl px-1 py-1 hover:bg-slate-400  text-white dark:hover:text-gray-800 hover:text-yellow-400 dark:hover:bg-slate-600"
+                    onClick={() => props.setDark(!props.dark)}
+                  >
+                    <div className="h-9 w-9 flex items-center justify-center">
+                      {props.dark ? (
+                        <MoonIcon className="h-6 w-6  text-blue-400"></MoonIcon>
+                      ) : (
+                        <SunIcon className="h-6 w-6 "></SunIcon>
+                      )}
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -105,7 +125,7 @@ function Navbar(props) {
         )}
       </Disclosure>
       {/* <div className="mt-4 max-w-7xl mx-auto border border-t-0 border-l-0 border-r-0 border-b-2 border-gray-300 drop-shadow-md"></div> */}
-    </div>
+    </nav>
   );
 }
 
