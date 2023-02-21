@@ -7,33 +7,20 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import { SessionProvider } from "next-auth/react";
-
 //All metadata is in THIS component.
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
-  var darkStore = false;
-  useEffect(() => {
-    darkStore = Boolean(
-      localStorage.getItem("mode") == undefined
-        ? false
-        : localStorage.getItem("mode")
-    );
-  }, []);
-  const [dark, setDark] = useState(darkStore);
+  const [dark, setDark] = useState(false);
   const [page, setPage] = useState("");
 
   //Extract dark mode state from local storage
   useEffect(() => {
-    if (typeof dark == Boolean) {
-      setDark(JSON.parse(localStorage.getItem("mode")));
-    }
+    setDark(JSON.parse(window.localStorage.getItem("mode")));
   }, []);
 
   //Set dark mode state in local storage
   useEffect(() => {
-    if (typeof dark == Boolean) {
-      localStorage.setItem("mode", dark);
-    }
+    window.localStorage.setItem("mode", dark);
   }, [dark]);
 
   return (
