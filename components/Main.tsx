@@ -1,7 +1,6 @@
 import Navbar from "./Navbar";
 import Microphone from "./Main/Microphone";
 import React from "react";
-import CountUp from "react-countup";
 
 function Main(props) {
   props.setPage("Home");

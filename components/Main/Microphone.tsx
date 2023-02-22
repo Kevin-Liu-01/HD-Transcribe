@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
-import { MicrophoneIcon } from "@heroicons/react/outline";
+import { MicrophoneIcon, ChatAlt2Icon } from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import Analyzer from "./MicrophoneComponents/Analyzer.js";
 import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import { isMobile } from "react-device-detect";
+import Speech from "speak-tts";
 
+//Components
 import Commands from "./MicrophoneComponents/Commands";
 import Instructions from "./MicrophoneComponents/Instructions";
 
@@ -209,14 +211,39 @@ function HeaderContents() {
     }
   };
 
+  //Text-to-Speech
+  const speech = typeof window !== "undefined" && new Speech();
+  typeof window !== "undefined" &&
+    speech
+      .init({
+        lang: "ar-SA",
+      })
+      .then((data) => {
+        // console.log("Speech is ready, voices are available", data);
+      })
+      .catch((e) => {
+        console.error("Error", e);
+      });
+
+  const speechHandler = (text) => {
+    speech
+      .speak({
+        text: text,
+      })
+
+      .catch((e) => {
+        console.error("Error:", e);
+      });
+  };
+
   return (
-    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
-      <div className="py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark  rounded-[2rem]   overflow-hidden">
+    <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl px-3 sm:px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
+      <div className="py-4 sm:py-8 drop-shadow-lg relative md:col-span-2 flex flex-col justify-center bg-gradient-to-b to-speechBlue dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark  rounded-[2rem]   overflow-hidden">
         <div className=" bg-[url('../assets/wave1.jpg')] bg-cover dark:opacity-30 opacity-20 h-full w-full absolute "></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 z-10 grow">
           <div>
-            <div className="text-4xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
+            <div className="text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
               Begin Recording...
             </div>
             <div className="flex flex-col justify-center items-center	 my-4 ">
@@ -258,7 +285,7 @@ function HeaderContents() {
             </div>
           </div>
 
-          <div className="bg-gray-50 z-10 ml-6 lg:ml-0 mr-6 lg:mr-8 rounded-2xl lg:rounded-3xl flex flex-col grow">
+          <div className="bg-gray-50 z-10 ml-4 sm:ml-6 lg:ml-0 mr-4 sm:mr-6 lg:mr-8 rounded-2xl lg:rounded-3xl flex flex-col grow">
             <div className="p-4">
               <p className="font-semibold select-none">Transcription:</p>
               {transcript ? (
@@ -312,7 +339,20 @@ function HeaderContents() {
                   ChatGPT
                 </button>
               )}
-              <div
+              <button
+                className={
+                  transcript
+                    ? "bg-orange-200 border border-orange-300 hover:bg-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 "
+                    : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 opacity-60"
+                }
+                onClick={() => {
+                  speechHandler(transcript);
+                }}
+              >
+                <ChatAlt2Icon className="h-5 sm:h-4 w-5 sm:w-4 inline sm:mb-1 sm:mr-1 text-gray-800" />
+                <div className="hidden sm:inline ">Text-to-Speech</div>
+              </button>
+              {/* <div
                 className={
                   activateAI
                     ? "font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block  duration-200"
@@ -320,28 +360,46 @@ function HeaderContents() {
                 }
               >
                 ChatGPT will respond!
-              </div>
+              </div> */}
               <div
                 className={
                   activateAI
-                    ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden duration-200 ease-in-out"
-                    : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 duration-150 ease-in-out"
+                    ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden duration-200 ease-in-out "
+                    : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 duration-150 ease-in-out "
                 }
               >
-                <div className="max-h-40 overflow-y-scroll scrollbar p-4  sm:flex">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
-                    className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
-                  ></img>
-                  <p className="font-semibold select-none inline">ChatGPT:</p>
-                  <div className="sm:ml-2 flex sm:mt-0 mt-2">
-                    {record ? (
-                      <div className="italic text-gray-500 inline-block sm:flex">
-                        ...
-                      </div>
-                    ) : (
-                      response
-                    )}
+                <div className=" relative ">
+                  <div className="sm:flex max-h-40 overflow-y-scroll scrollbar p-4">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                      className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                    ></img>
+                    <div className="font-semibold select-none inline">
+                      ChatGPT:
+                    </div>
+
+                    <div className="sm:ml-2 flex sm:mt-0 mt-2">
+                      {record ? (
+                        <div className="italic text-gray-500   sm:flex">
+                          ...
+                        </div>
+                      ) : (
+                        response
+                      )}
+                    </div>
+                    <button
+                      className={
+                        (response
+                          ? "bg-green-300 border border-green-400 hover:bg-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 "
+                          : "bg-green-300 border border-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 opacity-60") +
+                        " sm:relative  flex items-center ml-auto absolute top-3 sm:top-auto right-6 sm:right-auto"
+                      }
+                      onClick={() => {
+                        speechHandler(response);
+                      }}
+                    >
+                      <ChatAlt2Icon className="h-5 w-5 inline   text-gray-800" />
+                    </button>
                   </div>
                 </div>
               </div>
