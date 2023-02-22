@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Instructions() {
   return (
     <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark rounded-[2rem]  flex flex-col  overflow-hidden">
@@ -34,9 +36,9 @@ function Instructions() {
           </div>
           <div className="mt-1">
             <span className="font-bold">5. </span>Finally, if you would like,{" "}
-            <a href="/upload" className="text-speechBluer font-bold">
+            <Link href="/upload" className="text-speechBluer font-bold">
               upload a file
-            </a>{" "}
+            </Link>{" "}
             to generate a transcription for the file.
           </div>
           <p className="mt-2">

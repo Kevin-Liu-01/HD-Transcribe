@@ -56,6 +56,7 @@ export default function Upload(props) {
         setSpeechSegments((current) => [...current, segment]);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [segment]);
 
   const handleClearPress = () => {
