@@ -47,36 +47,37 @@ export default function Upload(props) {
       const text = segment.words.map((w) => w.value).join(" ");
       setTentative(text);
       if (segment.isFinal) {
+        setTranscript(transcript + tentative);
+        if (activateAI && speechSegments[1]) {
+          handleAI();
+        }
         setTentative("");
         setSpeechSegments((current) => [...current, segment]);
       }
-    }
-    if (activateAI) {
-      handleAI();
     }
   }, [segment]);
 
   const handleClearPress = () => {
     setSpeechSegments([]);
     setTentative("");
+    setTranscript("");
+    setResponse("");
   };
 
   const handleAI = async () => {
-    console.log("AI Activated");
-    if (speechSegments[1]) {
-      // Generate a response with OpenAI
-      const completion = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: tentative,
-        temperature: 0,
-        max_tokens: 1000,
-        top_p: 1,
-        frequency_penalty: 0.5,
-        presence_penalty: 0,
-      });
-      // console.log(completion.data.choices);
-      setResponse(completion.data.choices[0].text);
-    }
+    console.log("AI " + transcript);
+    // Generate a response with OpenAI
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: transcript,
+      temperature: 0,
+      max_tokens: 1000,
+      top_p: 1,
+      frequency_penalty: 0.5,
+      presence_penalty: 0,
+    });
+    // console.log(completion.data.choices);
+    setResponse(completion.data.choices[0].text);
   };
 
   //Text-to-Speech
@@ -113,7 +114,7 @@ export default function Upload(props) {
             Upload
           </div>
           <div className="flex grow items-center justify-center flex-col mx-4 mb-4 bg-gray-300 border-4 border-dashed border-gray-400 rounded-lg sm:rounded-2xl ">
-            <div className="">
+            <div className="my-4">
               <code>
                 Client:{" "}
                 <span
@@ -142,7 +143,7 @@ export default function Upload(props) {
                 Only .wav files are accepted!
               </p>
             </div>
-            <div className="relative z-10 mt-2">
+            <div className="relative z-10 mt-2 mb-4">
               <button
                 onClick={handleClearPress}
                 disabled={!speechSegments.length && !tentative}
@@ -222,7 +223,7 @@ export default function Upload(props) {
                     : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 opacity-60"
                 }
                 onClick={() => {
-                  speechHandler(tentative);
+                  speechHandler(transcript);
                 }}
               >
                 <ChatAlt2Icon className="h-5 sm:h-4 w-5 sm:w-4 inline sm:mb-1 sm:mr-1 text-gray-800" />
@@ -246,15 +247,7 @@ export default function Upload(props) {
                       ChatGPT:
                     </div>
 
-                    <div className="sm:ml-2 flex sm:mt-0 mt-2">
-                      {speechSegments[1] ? (
-                        <div className="italic text-gray-500   sm:flex">
-                          ...
-                        </div>
-                      ) : (
-                        response
-                      )}
-                    </div>
+                    <div className="sm:ml-2 flex sm:mt-0 mt-2">{response}</div>
                     <button
                       className={
                         (response
