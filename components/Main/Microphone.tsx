@@ -243,10 +243,10 @@ export default function HeaderContents() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 z-10 grow">
           <div>
-            <div className="text-3xl leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  ">
+            <div className="text-[2rem] leading-8 font-extrabold tracking-tight text-white sm:text-5xl text-center select-none  my-4">
               Begin Recording...
             </div>
-            <div className="flex flex-col justify-center items-center	 my-4 ">
+            <div className="flex flex-col justify-center items-center	my-4 ">
               {counter !== 0 && (
                 <div className="text-black bg-gradient-to-r from-gray-100 to-gray-200 rounded-full border p-2 py-0">
                   Counter: {counter}
@@ -256,8 +256,10 @@ export default function HeaderContents() {
               <div ref={microphoneRef} onClick={handleListing} className="">
                 <div
                   className={`${
-                    effect && "animate-wiggle"
-                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechButton hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-2 flex flex-col items-center justify-center text-white`}
+                    effect && "animate-wiggle border-dashed"
+                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechButton 
+                  hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-[3px] flex flex-col items-center justify-center
+                   text-white`}
                   onClick={() => {
                     setEffect(true);
                   }}
@@ -291,7 +293,7 @@ export default function HeaderContents() {
               {transcript ? (
                 <>
                   <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                    <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 pb-4">
+                    <div className="max-h-40 p-2 overflow-y-scroll scrollbar pb-4">
                       {transcript}
                     </div>
                   </div>
@@ -304,7 +306,7 @@ export default function HeaderContents() {
                 </>
               ) : (
                 <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                  <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 text-gray-400 italic pb-4 select-none">
+                  <div className="max-h-40 p-2 overflow-y-scroll scrollbar text-gray-400 italic pb-4 select-none">
                     Click the microphone to begin recording!
                   </div>
                 </div>
@@ -321,9 +323,9 @@ export default function HeaderContents() {
                 <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
                   <img
                     src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                    className="h-4 w-4 inline mb-1 mr-1"
+                    className="h-4 w-4 inline mb-1 sm:mr-1"
                   ></img>
-                  ChatGPT
+                  <div className="sm:inline hidden text-gray-900">ChatGPT</div>
                 </button>
               ) : (
                 <button
@@ -334,9 +336,9 @@ export default function HeaderContents() {
                 >
                   <img
                     src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                    className="h-4 w-4 inline mb-1 mr-1"
+                    className="h-4 w-4 inline mb-1 sm:mr-1"
                   ></img>
-                  ChatGPT
+                  <div className="sm:inline hidden text-gray-900">ChatGPT</div>
                 </button>
               )}
               <button
@@ -364,8 +366,8 @@ export default function HeaderContents() {
               <div
                 className={
                   activateAI
-                    ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden duration-200 ease-in-out "
-                    : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 duration-150 ease-in-out "
+                    ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden h-auto duration-200 ease-in-out "
+                    : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 h-0 sm:h-auto duration-150 ease-in-out "
                 }
               >
                 <div className=" relative ">
@@ -374,7 +376,7 @@ export default function HeaderContents() {
                       src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
                       className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
                     ></img>
-                    <div className="font-semibold select-none inline">
+                    <div className="font-semibold select-none inline text-gray-800">
                       ChatGPT:
                     </div>
 

@@ -8,7 +8,8 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      hanken: ["Hanken Grotesk", "sans-serif"],
+      hanken: ["Hanken Grotesk", "Inter"],
+      general: ["General Sans", "Inter"],
     },
     extend: {
       colors: {

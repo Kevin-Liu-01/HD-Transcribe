@@ -2,10 +2,10 @@ function Instructions() {
   return (
     <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark rounded-[2rem]  flex flex-col  overflow-hidden">
       <div className=" bg-[url('../assets/wave3.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
-      <div className="mt-8 text-4xl leading-8 font-extrabold text-white tracking-tight sm:text-5xl text-center select-none  ">
+      <div className="mt-4 sm:mt-6 leading-8 font-extrabold text-white tracking-tight text-[2rem] sm:text-[2.75rem] text-center select-none  ">
         Instructions
       </div>
-      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-6 md:m-8 p-3  text-sm drop-shadow-lg">
+      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-4 sm:m-6 md:m-8 md:mt-6 p-3 text-sm drop-shadow-lg">
         <p className="mb-4">
           Using this voice model is fairly simple. However, to acheive the best
           results, be sure to speak clearly into your microphone. Minimize
@@ -32,7 +32,20 @@ function Instructions() {
             <span className="text-speechBluer font-bold">Reset</span> button to
             clear the transcription.
           </div>
-          <p className="mt-4">Enjoy using the model!</p>
+          <div className="mt-1">
+            <span className="font-bold">5. </span>Finally, if you would like,{" "}
+            <a href="/upload" className="text-speechBluer font-bold">
+              upload a file
+            </a>{" "}
+            to generate a transcription for the file.
+          </div>
+          <p className="mt-2">
+            Enjoy using the model!{" "}
+            <strong className="text-speechBluer">
+              Be sure to check out the new OpenAI ChatGPT integration and
+              text-to-speech features!
+            </strong>
+          </p>
         </div>
       </div>
     </div>

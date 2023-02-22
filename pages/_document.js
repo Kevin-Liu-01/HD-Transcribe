@@ -7,9 +7,9 @@ export default function Document() {
 
         <meta
           name="description"
-          content="HD Transcribe is an application that aims to provide a way for individuals with Huntington's Disease to communicate."
+          content="HD Transcribe is an application that aims to provide a way for individuals with Huntington's Disease to communicate. HD-Transcribe allows for the live and recorded transcription of speech into text. "
         />
-
+        <meta content="./favicon.png" property="og:image" />
         <link rel="apple-touch-icon" href="./favicon.png" />
         {/*
                     manifest.json provides metadata used when your web app is installed on a
@@ -33,10 +33,8 @@ export default function Document() {
           rel="stylesheet"
         />
         <link
+          href="https://api.fontshare.com/v2/css?f[]=general-sans@701,200,500,301,201,300,601,600,401,501,400,700&display=swap"
           rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css"
-          integrity="sha384-KiWOvVjnN8qwAZbuQyWDIbfCLFhLXNETzBQjA/92pIowpC0d2O3nppDGQVgwd2nB"
-          crossOrigin="anonymous"
         />
       </Head>
       <body className="font-hanken">

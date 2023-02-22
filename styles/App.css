@@ -2,12 +2,11 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Hanken Grotesk",
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: "Hanken Grotesk", sans-serif;
 }
 
 code {
@@ -87,6 +86,11 @@ body {
     contrast(100%);
 }
 
+.svgfill-blue {
+  filter: invert(40%) sepia(96%) saturate(713%) hue-rotate(155deg)
+    brightness(102%) contrast(101%);
+}
+
 .svgfill-gray {
   /* filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
     brightness(118%) contrast(119%); */
@@ -112,7 +116,7 @@ body {
 
     /* border-radius: 0.5rem; */
     border: 3px solid;
-    @apply border-2 border-gray-300 dark:border-gray-500 rounded-lg;
+    @apply border-2 border-gray-300 dark:border-gray-400 rounded-lg;
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
