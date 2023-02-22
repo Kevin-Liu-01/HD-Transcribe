@@ -392,13 +392,13 @@ function HeaderContents() {
                         (response
                           ? "bg-green-300 border border-green-400 hover:bg-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 "
                           : "bg-green-300 border border-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 opacity-60") +
-                        " sm:relative  flex items-center ml-auto absolute top-3 sm:top-auto right-6 sm:right-auto"
+                        " sm:relative sm:h-11 ml-auto absolute top-3 sm:top-auto right-6 sm:right-auto text-green-900 hover:text-green-800 hover:border-green-500"
                       }
                       onClick={() => {
                         speechHandler(response);
                       }}
                     >
-                      <ChatAlt2Icon className="h-5 w-5 inline   text-gray-800" />
+                      <ChatAlt2Icon className="h-5 w-5 inline" />
                     </button>
                   </div>
                 </div>
