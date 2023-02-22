@@ -113,7 +113,7 @@ export default function Upload(props) {
           <div className="my-4 text-4xl leading-8 font-extrabold text-white tracking-tight text-center select-none  ">
             Upload
           </div>
-          <div className="flex grow items-center justify-center flex-col mx-4 mb-4 bg-gray-300 border-4 border-dashed border-gray-400 rounded-lg sm:rounded-2xl ">
+          <div className="flex grow items-center justify-center flex-col mx-4 mb-4 bg-gray-300 border-4 border-dashed border-gray-400 rounded-2xl ">
             <div className="my-4">
               <code>
                 Client:{" "}
@@ -124,14 +124,14 @@ export default function Upload(props) {
                   {clientState ? (
                     <CheckIcon className="h-5  ml-1 inline" />
                   ) : (
-                    <XIcon />
+                    <XIcon className="h-5  ml-1 inline" />
                   )}
                 </span>
               </code>
             </div>
-            <UploadIcon className="h-16 w-16 inline text-speechBlueDarker" />
+            <UploadIcon className="h-16 w-16 inline text-speechBlueDark" />
 
-            <div className="flex flex-col z-10 text-center justify-center items-center mt-2">
+            <div className="flex flex-col z-10 text-center justify-center items-center mt-2 mx-4">
               <input
                 onChange={handleFileSelect}
                 id="file_input"
@@ -161,9 +161,9 @@ export default function Upload(props) {
         <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark  rounded-[2rem]  flex flex-col overflow-hidden">
           <div className=" bg-[url('../assets/wave2.jpg')] bg-cover  opacity-20 dark:opacity-30 h-full w-full absolute "></div>
           <div className="my-4 text-4xl leading-8 font-extrabold text-white tracking-tight text-center select-none  ">
-            Commands
+            Transcription
           </div>
-          <div className="bg-gray-50 z-10 mx-4 mb-4 rounded-2xl lg:rounded-3xl flex flex-col grow">
+          <div className="bg-gray-50 z-10 mx-4 mb-4 rounded-3xl flex flex-col grow">
             <div className="p-4">
               <p className="font-semibold select-none">Transcription:</p>
               {speechSegments[1] ? (
@@ -189,18 +189,13 @@ export default function Upload(props) {
               ) : (
                 <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
                   <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 text-gray-400 italic pb-4 select-none">
-                    Click the microphone to begin recording!
+                    Upload a file to begin transcription!
                   </div>
                 </div>
               )}
 
               {speechSegments[1] ? (
-                <button
-                  className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
-                  onClick={() => {
-                    setActivateAI(!activateAI);
-                  }}
-                >
+                <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
                   <img
                     src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
                     className="h-4 w-4 inline mb-1 mr-1"
@@ -208,7 +203,12 @@ export default function Upload(props) {
                   ChatGPT
                 </button>
               ) : (
-                <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
+                <button
+                  className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
+                  onClick={() => {
+                    setActivateAI(!activateAI);
+                  }}
+                >
                   <img
                     src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
                     className="h-4 w-4 inline mb-1 mr-1"

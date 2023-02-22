@@ -21,7 +21,7 @@ export default function Navbar(props) {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <nav className="bg-white dark:bg-gray-900 py-8 drop-shadow-sm dark:text-white">
+    <nav className="bg-white dark:bg-gray-900 py-4 sm:py-8 drop-shadow-sm dark:text-white">
       <Disclosure as="nav">
         {({ open }) => (
           <>
@@ -62,9 +62,9 @@ export default function Navbar(props) {
                     {/*mobile logo begin*/}
                     <Link
                       href="/"
-                      className="flex sm:hidden h-20 w-20  drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                      className="flex sm:hidden h-14 w-14  drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
                     >
-                      <ChatIcon className="h-12 w-12"></ChatIcon>
+                      <ChatIcon className="h-7 w-7"></ChatIcon>
                     </Link>
                     {/*logo end*/}
                   </a>

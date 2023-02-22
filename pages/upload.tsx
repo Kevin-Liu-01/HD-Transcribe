@@ -11,7 +11,7 @@ function App(props) {
       logSegments={true}
       vad={{ enabled: false }}
     >
-      <Upload setPage={props.setPage} />;
+      <Upload setPage={props.setPage} />
     </SpeechProvider>
   );
 }
