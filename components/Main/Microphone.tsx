@@ -208,23 +208,6 @@ function HeaderContents() {
       handleAI();
     }
   };
-  function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
-
-    for (var i = 0; i < reveals.length; i++) {
-      var windowHeight = window.innerHeight;
-      var elementTop = reveals[i].getBoundingClientRect().top;
-      // var elementVisible = 10;
-
-      if (elementTop < windowHeight) {
-        reveals[i].classList.add("active");
-      }
-      // else {
-      // 	reveals[i].classList.remove("active");
-      // }
-    }
-  }
-  window.addEventListener("click", reveal);
 
   return (
     <div className=" grid grid-cols-1 grid-rows-3 md:grid-rows-2 md:grid-cols-2 max-w-7xl  px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]  rounded-3xl">
@@ -329,32 +312,39 @@ function HeaderContents() {
                   ChatGPT
                 </button>
               )}
-              {activateAI && (
-                <div className=" font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block reveal">
-                  ChatGPT will respond!
-                </div>
-              )}
-              {activateAI && (
-                // chatgpts response
-                <div className="bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden reveal">
-                  <div className="max-h-40 overflow-y-scroll scrollbar p-4  sm:flex">
-                    <img
-                      src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
-                      className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
-                    ></img>
-                    <p className="font-semibold select-none inline">ChatGPT:</p>
-                    <div className="sm:ml-2 flex sm:mt-0 mt-2">
-                      {record ? (
-                        <div className="italic text-gray-500 inline-block sm:flex">
-                          ...
-                        </div>
-                      ) : (
-                        response
-                      )}
-                    </div>
+              <div
+                className={
+                  activateAI
+                    ? "font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block  duration-200"
+                    : " font-semibold select-none text-green-900 italic bg-green-300 rounded-xl border border-green-400 p-2  inline-block opacity-0 duration-150"
+                }
+              >
+                ChatGPT will respond!
+              </div>
+              <div
+                className={
+                  activateAI
+                    ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden duration-200 ease-in-out"
+                    : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 duration-150 ease-in-out"
+                }
+              >
+                <div className="max-h-40 overflow-y-scroll scrollbar p-4  sm:flex">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                    className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                  ></img>
+                  <p className="font-semibold select-none inline">ChatGPT:</p>
+                  <div className="sm:ml-2 flex sm:mt-0 mt-2">
+                    {record ? (
+                      <div className="italic text-gray-500 inline-block sm:flex">
+                        ...
+                      </div>
+                    ) : (
+                      response
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
         </div>

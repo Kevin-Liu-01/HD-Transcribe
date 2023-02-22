@@ -3,9 +3,9 @@ import {
   MenuIcon,
   XIcon,
   ChatIcon,
-  CogIcon,
   SunIcon,
   MoonIcon,
+  CheckCircleIcon,
 } from "@heroicons/react/outline";
 import React from "react";
 import Link from "next/link";
@@ -52,7 +52,7 @@ function Navbar(props) {
                       </p>
                       <p className="mt-1 pl-2 select-none bg-gradient-to-r from-gray-400 to-gray-500 rounded-l-full rounded-r-full border border-gray-300 font-semibold text-xs py-1 text-white">
                         <span className="w-auto bg-white rounded-full mr-2">
-                          <CogIcon className="h-4 w-4 inline"></CogIcon>
+                          <CheckCircleIcon className="h-4 w-4 inline"></CheckCircleIcon>
                         </span>
                         Production Build 1.2
                       </p>
