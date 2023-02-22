@@ -12,10 +12,11 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Home", href: "/" },
+  { name: "Upload", href: "/upload" },
   { name: "About", href: "/about" },
 ];
 
-function Navbar(props) {
+export default function Navbar(props) {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -128,5 +129,3 @@ function Navbar(props) {
     </nav>
   );
 }
-
-export default Navbar;

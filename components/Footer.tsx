@@ -1,6 +1,6 @@
 import React from "react";
 
-function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-gradient-to-b pt-10 pb-8 from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 drop-shadow-xl">
       <div className="text-center">
@@ -24,5 +24,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;

@@ -2,7 +2,7 @@ import { DesktopComputerIcon, ChatAlt2Icon } from "@heroicons/react/outline";
 import Navbar from "./Navbar";
 import React from "react";
 
-function About(props) {
+export default function About(props) {
   props.setPage("About");
   return (
     <div className="">
@@ -78,5 +78,3 @@ function About(props) {
     </div>
   );
 }
-
-export default About;

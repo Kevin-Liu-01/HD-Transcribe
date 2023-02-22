@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import Microphone from "./Main/Microphone";
 import React from "react";
 
-function Main(props) {
+export default function Main(props) {
   props.setPage("Home");
   return (
     <div id="background" className="dark:bg-gray-700 bg-gray-300 ">
@@ -20,5 +20,3 @@ function Main(props) {
     </div>
   );
 }
-
-export default Main;

@@ -30,7 +30,7 @@ if (!isMobile) {
   SpeechRecognition.removePolyfill();
 }
 
-function HeaderContents() {
+export default function HeaderContents() {
   //Transcription and Audio
   const [record, setRecord] = useState(false);
   const [audio, setAudio] = useState(null);
@@ -412,5 +412,3 @@ function HeaderContents() {
     </div>
   );
 }
-
-export default HeaderContents;
