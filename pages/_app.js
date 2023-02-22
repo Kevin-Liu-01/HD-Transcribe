@@ -14,14 +14,14 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const [page, setPage] = useState("");
 
   //Extract dark mode state from local storage
-  // useEffect(() => {
-  //   setDark(JSON.parse(window.localStorage.getItem("mode")));
-  // }, []);
+  useEffect(() => {
+    setDark(JSON.parse(window.localStorage.getItem("mode")));
+  }, []);
 
-  // //Set dark mode state in local storage
-  // useEffect(() => {
-  //   window.localStorage.setItem("mode", dark);
-  // }, [dark]);
+  //Set dark mode state in local storage
+  useEffect(() => {
+    window.localStorage.setItem("mode", dark);
+  }, [dark]);
 
   return (
     <SessionProvider session={session}>
