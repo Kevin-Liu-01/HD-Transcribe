@@ -68,11 +68,9 @@ export default function Upload(props) {
   };
 
   const handleAI = async (text) => {
-    // console.log("AI " + transcript);
-    // Generate a response with OpenAI
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: text,
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: text }],
       temperature: 0,
       max_tokens: 1000,
       top_p: 1,
@@ -80,7 +78,7 @@ export default function Upload(props) {
       presence_penalty: 0,
     });
     // console.log(completion.data.choices);
-    setResponse(completion.data.choices[0].text);
+    setResponse(completion.data.choices[0].message.content);
   };
 
   //Text-to-Speech
@@ -119,7 +117,7 @@ export default function Upload(props) {
                 <div className="my-6 text-[2rem] sm:text-[2.75rem] leading-8 font-extrabold text-white tracking-tight text-center select-none  ">
                   Upload File
                 </div>
-                <div className="flex grow items-center justify-center flex-col mx-4 mb-4 bg-gray-200 border-[3px] border-dashed border-gray-400 rounded-2xl  shadow-inner">
+                <div className="flex grow items-center justify-center flex-col mx-4 md:mx-6 mb-4 md:mb-6 bg-gray-200 border-[3px] border-dashed border-gray-400 rounded-2xl  shadow-inner">
                   <div className="mt-4 mb-6 sm:mb-3">
                     <code>
                       Client:{" "}
@@ -152,11 +150,11 @@ export default function Upload(props) {
                       id="file_input"
                       type="file"
                       accept=".wav"
-                      className="duration-150 ease-in-out file:duration-150 file:ease-in-out file:bg-blue-50 dark:file:bg-gray-500 file:p-2
+                      className="duration-150 ease-in-out file:duration-150 file:ease-in-out file:bg-blue-50 dark:file:bg-speechBlueDarker file:p-2
                        file:text-speechBlueDarker dark:file:text-gray-100 file:font-semibold hover:file:cursor-pointer hover:file:bg-blue-100
-                        dark:hover:file:bg-slate-500 file:rounded-none file:border-none block w-full text-sm text-gray-900 border
-                         border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-600
-                          dark:border-gray-500 dark:placeholder-gray-400"
+                        dark:hover:file:bg-speechBlue file:rounded-none file:border-none block w-full text-sm text-gray-900 border
+                         border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-speechBlueDarker focus:outline-none dark:bg-speechBlueLight
+                          dark:border-speechBlueDark dark:placeholder-gray-400"
                     />
                     <p className="block italic text-gray-400 text-sm">
                       Only .wav files are accepted!
@@ -182,7 +180,7 @@ export default function Upload(props) {
                 <div className="my-6 text-[2rem] sm:text-[2.75rem] leading-8 font-extrabold text-white tracking-tight text-center select-none  ">
                   Transcription
                 </div>
-                <div className="bg-gray-50 z-10 mx-4 mb-4 rounded-3xl flex flex-col grow">
+                <div className="bg-gray-50 z-10 mx-4 md:mx-6 mb-4 md:mb-6 rounded-3xl flex flex-col grow">
                   <div className="p-4">
                     <p className="font-semibold select-none">Transcription:</p>
                     {transcript ? (
@@ -293,7 +291,7 @@ export default function Upload(props) {
                 <div className="my-6 text-[2rem] sm:text-[2.75rem] leading-8 font-extrabold text-white tracking-tight text-center select-none  ">
                   JSON Output
                 </div>
-                <div className="flex grow flex-col mx-4 mb-4 bg-gray-200 border-[3px] border-dashed border-gray-400 rounded-2xl overflow-hidden shadow-inner">
+                <div className="flex grow flex-col mx-4 md:mx-6 mb-4 md:mb-6 bg-gray-200 border-[3px] border-dashed border-gray-400 rounded-2xl overflow-hidden shadow-inner">
                   <pre className="h-72 max-h-72 overflow-y-scroll scrollbar p-4 w-full z-10">
                     {transcript ? (
                       speechSegments?.map((segment) => (

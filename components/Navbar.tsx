@@ -51,9 +51,9 @@ export default function Navbar(props) {
                       <p className="my-auto text-2xl font-extrabold text-gray-800 dark:text-gray-200">
                         HD Transcribe
                       </p>
-                      <p className="flex items-center select-none bg-gradient-to-r from-gray-400 dark:from-speechBlue to-gray-500 dark:to-speechBlueDarker rounded-l-full rounded-r-full border  border-gray-300 dark:border-speechBlueLight  font-semibold text-xs py-1 text-white">
-                        <CogIcon className="h-4 w-4 inline mr-1 ml-2"></CogIcon>
-                        Production Build 1.3
+                      <p className="flex pl-2 pr-3 items-center select-none bg-gradient-to-r from-gray-400 dark:from-speechBlue to-gray-500 dark:to-speechBlueDarker rounded-l-full rounded-r-full border  border-gray-300 dark:border-speechBlueLight  font-semibold text-xs py-1 text-white">
+                        <CogIcon className="h-4 w-4 inline mr-1 "></CogIcon>
+                        Production Build 1.3.1
                       </p>
                     </div>
                     {/*logo end*/}
@@ -87,7 +87,7 @@ export default function Navbar(props) {
                 </div>
                 <div className="md:pl-4 md:mr-2 flex-shrink-0 sm:ml-4 flex justify-self-end items-center select-none ">
                   <button
-                    className="flex bg-slate-300 dark:bg-slate-800 rounded-xl px-1 py-1 hover:bg-slate-400 dark:hover:bg-slate-700 dark:text-blue-500 text-yellow-100 dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
+                    className="flex bg-slate-300 dark:bg-slate-800 rounded-xl px-1 py-1 hover:bg-slate-400 dark:hover:bg-slate-700 dark:text-blue-500 text-white dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
                     onClick={() => props.setDark(!props.dark)}
                   >
                     <div className="h-9 w-9 flex items-center justify-center">
