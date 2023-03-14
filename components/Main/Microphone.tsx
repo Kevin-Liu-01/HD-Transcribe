@@ -327,6 +327,7 @@ export default function HeaderContents() {
                               : "https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
                           }
                           className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
+                          alt="avatar"
                         ></img>
                         <div className="font-semibold select-none inline text-gray-500">
                           {session ? session.user.name : "Guest"}:
@@ -346,6 +347,7 @@ export default function HeaderContents() {
                         <img
                           src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
                           className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                          alt="ChatGPT"
                         ></img>
                         <div className="font-semibold select-none inline text-gray-800">
                           ChatGPT:
