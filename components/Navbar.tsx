@@ -8,6 +8,7 @@ import {
   CogIcon,
 } from "@heroicons/react/outline";
 import React from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 
 const navigation = [
@@ -17,6 +18,8 @@ const navigation = [
 ];
 
 export default function Navbar(props) {
+  const { data: session } = useSession();
+
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -27,7 +30,7 @@ export default function Navbar(props) {
           <>
             <div className="max-w-7xl px-4 md:mx-2 2xl:px-0 lg:mx-auto">
               <div className="relative flex items-center justify-between h-16">
-                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
                   <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="sr-only">Open main menu</span>
@@ -60,14 +63,14 @@ export default function Navbar(props) {
                     {/*mobile logo begin*/}
                     <Link
                       href="/"
-                      className="flex sm:hidden h-14 w-14  drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                      className="flex sm:hidden h-14 w-14 absolute left-0 top-0 drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
                     >
                       <ChatIcon className="h-7 w-7"></ChatIcon>
                     </Link>
                     {/*logo end*/}
                   </a>
                   <div className="hidden sm:block sm:ml-auto my-2">
-                    <div className="flex space-x-4">
+                    <div className="flex space-x-3 lg:space-x-4">
                       {navigation.map((item) => (
                         <a
                           key={item.name}
@@ -85,9 +88,37 @@ export default function Navbar(props) {
                     </div>
                   </div>
                 </div>
+
                 <div className="md:pl-4 md:mr-2 flex-shrink-0 sm:ml-4 flex justify-self-end items-center select-none ">
+                  <div className="ml-auto">
+                    {session && session.user ? (
+                      <div className="flex flex-row text-right text-xs sm:text-base">
+                        <div className=" flex-col mr-2 sm:mr-4 my-auto flex">
+                          <span className="dark:text-gray-200">
+                            {session.user.name}
+                          </span>
+                          <button
+                            className="text-xs sm:text-sm font-medium text-speechBlueDarker hover:text-speechBlue rounded-xl hover:scale-105 duration-150"
+                            onClick={() => signOut()}
+                          >
+                            Sign Out
+                          </button>
+                        </div>
+                        <div className="h-12 w-12 rounded-full overflow-hidden mr-4 bg-speechBlue hover:scale-105 duration-150">
+                          <img src={"" + session.user.image} alt="avatar" />
+                        </div>
+                      </div>
+                    ) : (
+                      <button
+                        className="p-2 text-lg font-medium text-gray-500 hover:text-speechBlue sm:mb-1 mr-2 rounded-xl hover:scale-105 duration-150"
+                        onClick={() => signIn()}
+                      >
+                        Sign In
+                      </button>
+                    )}
+                  </div>
                   <button
-                    className="flex bg-slate-300 dark:bg-slate-800 rounded-xl px-1 py-1 hover:bg-slate-400 dark:hover:bg-slate-700 dark:text-blue-500 text-white dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
+                    className="mr-9 sm:mr-0 flex bg-slate-300 dark:bg-slate-800 rounded-xl px-1 py-1 hover:bg-slate-400 dark:hover:bg-slate-700 dark:text-blue-500 text-white dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
                     onClick={() => props.setDark(!props.dark)}
                   >
                     <div className="h-9 w-9 flex items-center justify-center">

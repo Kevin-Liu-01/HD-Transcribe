@@ -1,5 +1,9 @@
 import React, { useRef, useState } from "react";
-import { MicrophoneIcon, ChatAlt2Icon } from "@heroicons/react/outline";
+import {
+  MicrophoneIcon,
+  ChatAlt2Icon,
+  TrashIcon,
+} from "@heroicons/react/outline";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -7,6 +11,7 @@ import Analyzer from "./MicrophoneComponents/Analyzer.js";
 import { createSpeechlySpeechRecognition } from "@speechly/speech-recognition-polyfill";
 import { isMobile } from "react-device-detect";
 import Speech from "speak-tts";
+import { useSession } from "next-auth/react";
 
 //Components
 import Commands from "./MicrophoneComponents/Commands";
@@ -31,9 +36,12 @@ if (!isMobile) {
 }
 
 export default function HeaderContents() {
+  const { data: session } = useSession();
+
   //Transcription and Audio
   const [record, setRecord] = useState(false);
   const [audio, setAudio] = useState(null);
+  const [orientation, setOrientation] = useState(true);
 
   //Wiggling and Counter
   const [effect, setEffect] = useState(true);
@@ -289,38 +297,108 @@ export default function HeaderContents() {
 
           <div className="bg-gray-50 z-10 ml-4 sm:ml-6 lg:ml-0 mr-4 sm:mr-6 lg:mr-8 rounded-2xl lg:rounded-3xl flex flex-col grow">
             <div className="p-4">
-              <p className="font-semibold select-none">Transcription:</p>
-              {transcript ? (
-                <>
-                  <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                    <div className="max-h-40 p-2 overflow-y-scroll scrollbar pb-4">
-                      {transcript}
+              <p className="font-semibold select-none">Transcription:</p>{" "}
+              <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
+                <div className="max-h-40 p-4 overflow-y-scroll scrollbar pb-4">
+                  {transcript ? (
+                    <>
+                      <div className="inline">
+                        <img
+                          src={
+                            session
+                              ? session.user.image
+                              : "https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                          }
+                          className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
+                        ></img>
+                        <div className="font-semibold select-none inline text-gray-800">
+                          {session ? session.user.name : "Guest"}:
+                        </div>
+                      </div>
+                      {" " + transcript}
+                    </>
+                  ) : (
+                    <div className="select-none">
+                      <div className="inline">
+                        <img
+                          src={
+                            session
+                              ? session.user.image
+                              : "https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                          }
+                          className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
+                        ></img>
+                        <div className="font-semibold select-none inline text-gray-500">
+                          {session ? session.user.name : "Guest"}:
+                        </div>
+                      </div>
+                      <span className="italic">
+                        {" "}
+                        Click the microphone to begin recording!
+                      </span>
+                    </div>
+                  )}
+                  <div
+                    className={!orientation && activateAI ? "inline" : "hidden"}
+                  >
+                    <div className=" relative mt-6">
+                      <div className="sm:flex ">
+                        <img
+                          src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                          className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                        ></img>
+                        <div className="font-semibold select-none inline text-gray-800">
+                          ChatGPT:
+                        </div>
+
+                        <div className="sm:ml-2 flex sm:mt-0 mt-2">
+                          {record ? (
+                            <div className="italic text-gray-500   sm:flex">
+                              ...
+                            </div>
+                          ) : (
+                            response
+                          )}
+                        </div>
+                        <button
+                          className={
+                            (response
+                              ? "bg-green-300 border border-green-400 hover:bg-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 "
+                              : "bg-green-300 border border-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 opacity-60") +
+                            " sm:relative sm:h-11 ml-auto absolute bottom-0 right-3 sm:right-auto text-green-900 hover:text-green-800 hover:border-green-500"
+                          }
+                          onClick={() => {
+                            speechHandler(response);
+                          }}
+                        >
+                          <ChatAlt2Icon className="h-5 w-5 inline" />
+                        </button>
+                      </div>
                     </div>
                   </div>
-                  <button
-                    className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
-                    onClick={handleReset}
-                  >
-                    Reset
-                  </button>
-                </>
-              ) : (
-                <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                  <div className="max-h-40 p-2 overflow-y-scroll scrollbar text-gray-400 italic pb-4 select-none">
-                    Click the microphone to begin recording!
-                  </div>
                 </div>
+              </div>
+              {transcript ? (
+                <button
+                  className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mr-2 mb-2"
+                  onClick={handleReset}
+                >
+                  <TrashIcon className="h-4 w-4 inline mb-1 sm:mr-1" />
+                  <span className="hidden sm:inline">Reset</span>
+                </button>
+              ) : (
+                <></>
               )}
               {isListening && (
                 <button
-                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-4 rounded-xl p-2 select-none mr-1"
+                  className="bg-red-200 border border-red-300 hover:bg-red-300 duration-150 ease-in-out px-3 sm:px-4 rounded-xl p-2 select-none mr-1"
                   onClick={stopHandle}
                 >
                   Stop
                 </button>
               )}{" "}
               {record ? (
-                <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
+                <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 mr-3 opacity-60">
                   <img
                     src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
                     className="h-4 w-4 inline mb-1 sm:mr-1"
@@ -329,7 +407,7 @@ export default function HeaderContents() {
                 </button>
               ) : (
                 <button
-                  className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
+                  className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 mr-3"
                   onClick={() => {
                     setActivateAI(!activateAI);
                   }}
@@ -341,11 +419,36 @@ export default function HeaderContents() {
                   <div className="sm:inline hidden text-gray-900">ChatGPT</div>
                 </button>
               )}
+              {!record && activateAI ? (
+                <button
+                  className="bg-blue-200 border border-blue-300 hover:bg-blue-300 duration-150 ease-in-out px-3 sm:px-4 rounded-xl p-2 select-none mr-3"
+                  onClick={() => setOrientation(!orientation)}
+                >
+                  <svg
+                    className="h-4 w-4 inline mb-1 sm:mr-1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                    />
+                  </svg>
+
+                  <div className="sm:inline hidden text-gray-900">Switch</div>
+                </button>
+              ) : (
+                <></>
+              )}
               <button
                 className={
                   transcript
-                    ? "bg-orange-200 border border-orange-300 hover:bg-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 "
-                    : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 opacity-60"
+                    ? "bg-orange-200 border border-orange-300 hover:bg-orange-300 duration-150 ease-in-out rounded-xl px-2.5 sm:px-4 p-2 mb-2 "
+                    : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-2.5 sm:px-4 p-2 mb-2 opacity-60"
                 }
                 onClick={() => {
                   speechHandler(transcript);
@@ -365,7 +468,7 @@ export default function HeaderContents() {
               </div> */}
               <div
                 className={
-                  activateAI
+                  orientation && activateAI
                     ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden h-auto duration-200 ease-in-out "
                     : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 h-0 sm:h-auto duration-150 ease-in-out "
                 }
