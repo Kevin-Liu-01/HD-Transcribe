@@ -332,7 +332,7 @@ export default function HeaderContents() {
                           {session ? session.user.name : "Guest"}:
                         </div>
                       </div>
-                      <span className="italic">
+                      <span className="italic text-gray-400">
                         {" "}
                         Click the microphone to begin recording!
                       </span>
