@@ -256,7 +256,7 @@ export default function HeaderContents() {
             </div>
             <div className="flex flex-col justify-center items-center	my-4 ">
               {counter !== 0 && (
-                <div className="text-black bg-gradient-to-r from-gray-100 to-gray-200 rounded-full border p-2 py-0">
+                <div className="text-gray-900 bg-gradient-to-r from-gray-100 to-gray-200 rounded-full border p-2 py-0">
                   Counter: {counter}
                 </div>
               )}
