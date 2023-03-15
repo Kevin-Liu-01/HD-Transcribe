@@ -1,6 +1,6 @@
 # HD Transcribe
 
-HD Transcribe provides a speech-to-text function that allows Huntington's Disease patients to communicate with others more easily.
+HD Transcribe provides a speech-to-text model that allows Huntington's Disease patients to communicate with others more easily.
 
 To allow Huntington&apos;s Disease patients to communicate more
 easily and improve their quality of life, this project aims to

@@ -7,13 +7,13 @@ function Instructions() {
       <div className="mt-4 sm:mt-6 leading-8 font-extrabold text-white tracking-tight text-[2rem] sm:text-[2.75rem] text-center select-none  ">
         Instructions
       </div>
-      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-4 sm:m-6 md:m-8 md:mt-6 p-3 text-sm drop-shadow-lg">
+      <div className="text-xs sm:text-sm bg-white flex flex-col grow z-10 rounded-2xl m-4 sm:m-6 md:m-8 md:mt-6 p-3 drop-shadow-lg">
         <p className="mb-4">
           Using this voice model is fairly simple. However, to acheive the best
           results, be sure to speak clearly into your microphone. Minimize
           background noise and try to speak at a normal volume.
         </p>
-        <div className="flex flex-col grow">
+        <div className="grid grid-cols-1 grow">
           <div className="">
             <span className="font-bold">1. </span>Click on the{" "}
             <span className="text-speechBluer font-bold">Microphone</span>{" "}

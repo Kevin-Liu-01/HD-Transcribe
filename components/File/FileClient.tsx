@@ -11,6 +11,7 @@ import {
   XIcon,
 } from "@heroicons/react/outline";
 import Speech from "speak-tts";
+import { useSession } from "next-auth/react";
 
 //OpenAI Integration
 const { Configuration, OpenAIApi } = require("openai");
@@ -21,12 +22,14 @@ const openai = new OpenAIApi(configuration);
 
 export default function Upload(props) {
   props.setPage("Upload");
+  const { data: session } = useSession();
 
   //File uploading
   const [speechSegments, setSpeechSegments] = useState<SpeechSegment[]>([]);
   const [tentative, setTentative] = useState("");
   const { client, clientState, segment } = useSpeechContext();
   const [transcript, setTranscript] = useState("");
+  const [orientation, setOrientation] = useState(true);
 
   //OpenAI integration
   const [response, setResponse] = useState("");
@@ -108,9 +111,9 @@ export default function Upload(props) {
 
   return (
     <div id="background" className="dark:bg-gray-700 bg-gray-300 ">
-      <div className="bg-white/60 dark:bg-gray-800/60 bg-blend-lighten dark:bg-blend-darken min-h-screen transition duration-150 pb-8 bg-[url('https://cdn.discordapp.com/attachments/753798704082714715/1077390395337609296/oie_4iGzXPuQjxVl.png')] bg-cover">
+      <div className="bg-white/70 dark:bg-gray-800/80 bg-blend-lighten dark:bg-blend-darken min-h-screen transition duration-150 pb-8 bg-[url('https://cdn.discordapp.com/attachments/753798704082714715/1077390395337609296/oie_4iGzXPuQjxVl.png')] bg-cover">
         <div className="relative items-center">
-          <div className="bg-gradient-to-b to-gray-500 pt-8 ">
+          <div className="bg-gradient-to-b to-gray-500 pt-5 sm:pt-8 ">
             <div className=" grid grid-cols-1 md:grid-cols-2 max-w-7xl px-3 sm:px-4 md:mx-2 2xl:px-0 lg:mx-auto gap-4 md:gap-[1.85rem]">
               <div className="drop-shadow-lg relative  bg-gradient-to-b to-speechBluer dark:to-speechBlueDarker from-speechBlue dark:from-speechBlueDark rounded-[2rem] flex flex-col overflow-hidden">
                 <div className=" bg-[url('../assets/wave2.jpg')] bg-cover  opacity-20 h-full w-full absolute "></div>
@@ -183,61 +186,143 @@ export default function Upload(props) {
                 <div className="bg-gray-50 z-10 mx-4 md:mx-6 mb-4 md:mb-6 rounded-3xl flex flex-col grow">
                   <div className="p-4">
                     <p className="font-semibold select-none">Transcription:</p>
-                    {transcript ? (
-                      <>
-                        <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                          <div className="max-h-40  overflow-y-scroll scrollbar p-1 sm:px-2 pb-4">
-                            <div>{transcript}</div>
-                            {/* {speechSegments?.map((segment) => (
-                        <SegmentItem
-                          key={`segment-${segment.contextId}-${segment.id}`}
-                          segment={segment}
-                        />
-                      ))} */}
+                    <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
+                      <div className="max-h-40 p-4 overflow-y-scroll scrollbar pb-4">
+                        {transcript ? (
+                          <>
+                            <div className="inline">
+                              <img
+                                src={
+                                  session
+                                    ? session.user.image
+                                    : "https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+                                }
+                                className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
+                              ></img>
+                              <div className="font-semibold select-none inline text-gray-800">
+                                {session ? session.user.name : "Guest"}:
+                              </div>
+                            </div>
+                            {" " + transcript}
+                          </>
+                        ) : (
+                          <div className="select-none">
+                            <div className="inline">
+                              <img
+                                src={
+                                  session
+                                    ? session.user.image
+                                    : "https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+                                }
+                                className="h-5 w-5 mr-2 inline rounded-full sm:mb-1 "
+                                alt="avatar"
+                              ></img>
+                              <div className="font-semibold select-none inline text-gray-500">
+                                {session ? session.user.name : "Guest"}:
+                              </div>
+                            </div>
+                            <span className="italic text-gray-400">
+                              {" "}
+                              Upload a file to begin transcription!
+                            </span>
+                          </div>
+                        )}
+                        <div
+                          className={
+                            !orientation && activateAI ? "inline" : "hidden"
+                          }
+                        >
+                          <div className=" relative mt-6">
+                            <div className="sm:flex ">
+                              <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg"
+                                className="h-5 w-5 mb-0.5 sm:mb-0 sm:mt-0.5 mr-2 inline"
+                                alt="ChatGPT"
+                              ></img>
+                              <div className="font-semibold select-none inline text-gray-800">
+                                ChatGPT:
+                              </div>
+
+                              <div className="sm:ml-2 flex sm:mt-0 mt-2">
+                                {response}
+                              </div>
+                              <button
+                                className={
+                                  (response
+                                    ? "bg-green-300 border border-green-400 hover:bg-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 "
+                                    : "bg-green-300 border border-green-400 duration-150 ease-in-out rounded-xl px-3 py-1 opacity-60") +
+                                  " sm:relative sm:h-11 ml-auto absolute bottom-0 right-3 sm:right-auto text-green-900 hover:text-green-800 hover:border-green-500"
+                                }
+                                onClick={() => {
+                                  speechHandler(response);
+                                }}
+                              >
+                                <ChatAlt2Icon className="h-5 w-5 inline" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                        <button
-                          className="bg-gray-200 border border-gray-300 hover:bg-gray-300 duration-150 ease-in-out rounded-xl px-4 p-2 mr-2 mb-2"
-                          onClick={handleClearPress}
-                        >
-                          Reset
-                        </button>
-                      </>
-                    ) : (
-                      <div className="mb-4 rounded-lg overflow-hidden bg-gray-200 shadow-inner">
-                        <div className="max-h-40  overflow-y-scroll scrollbar p-2 text-gray-400 italic pb-4 select-none">
-                          Upload a file to begin transcription!
-                        </div>
                       </div>
-                    )}
+                    </div>
 
                     {transcript ? (
-                      <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3 opacity-60">
+                      <button className="bg-green-200 border border-green-300 select-none duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 mr-3 opacity-60">
                         <img
                           src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                          className="h-4 w-4 inline mb-1 mr-1 text-gray-900"
+                          className="h-4 w-4 inline mb-1 mr-1 "
                         ></img>
-                        ChatGPT
+                        <div className="sm:inline hidden text-gray-900">
+                          ChatGPT
+                        </div>
                       </button>
                     ) : (
                       <button
-                        className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 mr-3"
+                        className="bg-green-200 border border-green-300 hover:bg-green-300 duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 mr-3"
                         onClick={() => {
                           setActivateAI(!activateAI);
                         }}
                       >
                         <img
                           src="https://cdn.cdnlogo.com/logos/c/38/ChatGPT.svg"
-                          className="h-4 w-4 inline mb-1 mr-1 text-gray-900"
+                          className="h-4 w-4 inline mb-1 sm:mr-1 "
                         ></img>
-                        ChatGPT
+                        <div className="sm:inline hidden text-gray-900">
+                          ChatGPT
+                        </div>
                       </button>
+                    )}
+                    {activateAI ? (
+                      <button
+                        className="bg-blue-200 border border-blue-300 hover:bg-blue-300 duration-150 ease-in-out px-3 sm:px-4 rounded-xl p-2 select-none mr-3"
+                        onClick={() => setOrientation(!orientation)}
+                      >
+                        <svg
+                          className="h-4 w-4 inline mb-1 sm:mr-1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                          />
+                        </svg>
+
+                        <div className="sm:inline hidden text-gray-900">
+                          Switch
+                        </div>
+                      </button>
+                    ) : (
+                      <></>
                     )}
                     <button
                       className={
                         transcript
-                          ? "bg-orange-200 border border-orange-300 hover:bg-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 "
-                          : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-4 p-2 mb-2 opacity-60 select-none"
+                          ? "bg-orange-200 border border-orange-300 hover:bg-orange-300 duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 "
+                          : "bg-orange-200 border border-orange-300 duration-150 ease-in-out rounded-xl px-3 sm:px-4 p-2 mb-2 opacity-60 select-none"
                       }
                       onClick={() => {
                         speechHandler(transcript);
@@ -249,9 +334,9 @@ export default function Upload(props) {
 
                     <div
                       className={
-                        activateAI
+                        orientation && activateAI
                           ? "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden duration-200 ease-in-out "
-                          : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 duration-150 ease-in-out "
+                          : "bg-gray-200 rounded-xl mt-2 shadow-inner overflow-hidden opacity-0 h-0 duration-150 ease-in-out "
                       }
                     >
                       <div className=" relative ">

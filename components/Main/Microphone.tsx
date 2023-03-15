@@ -265,8 +265,8 @@ export default function HeaderContents() {
                 <div
                   className={`${
                     effect && "animate-wiggle border-dashed"
-                  }  h-48  mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechButton 
-                  hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker w-48 rounded-full border-white border-[3px] flex flex-col items-center justify-center
+                  }  h-40 w-40 sm:h-48 sm:w-48 mt-4 hover:scale-105 transition duration-200 ease-in-out drop-shadow-lg bg-speechBlue dark:bg-speechButton 
+                  hover:bg-speechBlueDark dark:hover:bg-speechBlueDarker rounded-full border-white border-[3px] flex flex-col items-center justify-center
                    text-white`}
                   onClick={() => {
                     setEffect(true);
@@ -307,7 +307,7 @@ export default function HeaderContents() {
                           src={
                             session
                               ? session.user.image
-                              : "https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                              : "https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
                           }
                           className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
                         ></img>
@@ -324,9 +324,9 @@ export default function HeaderContents() {
                           src={
                             session
                               ? session.user.image
-                              : "https://180dc.org/wp-content/uploads/2022/04/Blank-Avatar.png"
+                              : "https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
                           }
-                          className="h-5 w-5 mr-2 inline rounded-full sm:mb-1"
+                          className="h-5 w-5 mr-2 inline rounded-full sm:mb-1 "
                           alt="avatar"
                         ></img>
                         <div className="font-semibold select-none inline text-gray-500">

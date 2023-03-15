@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="text-center">
         <div className="text-center ">
           <div className="mb-3">
-            <div className="text-gray-800 dark:text-gray-200 max-w-xl mx-8 sm:mx-auto">
+            <div className="text-gray-800 dark:text-gray-200 max-w-xl mx-8 sm:mx-auto text-sm sm:text-base">
               <p>
                 HD Transcribe is an application that aims to provide an
                 accessible, convenient way for individuals with

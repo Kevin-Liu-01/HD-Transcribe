@@ -7,7 +7,7 @@ function Commands() {
       <div className="mt-4 sm:mt-6 leading-8 font-extrabold text-white tracking-tight text-[2rem] sm:text-[2.75rem]  text-center select-none  ">
         Commands
       </div>
-      <div className="bg-white flex flex-col grow z-10 rounded-2xl m-4 sm:m-6 md:m-8 md:mt-6 p-3  text-sm drop-shadow-lg">
+      <div className="text-xs sm:text-sm bg-white flex flex-col grow z-10 rounded-2xl m-4 sm:m-6 md:m-8 md:mt-6 p-3 drop-shadow-lg">
         <p className="mb-4">
           There are several commands you can use to interact with the model.
           When you say a command, it may take a second for the model to respond.{" "}

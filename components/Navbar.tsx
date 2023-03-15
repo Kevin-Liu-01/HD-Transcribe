@@ -24,7 +24,7 @@ export default function Navbar(props) {
     return classes.filter(Boolean).join(" ");
   }
   return (
-    <nav className="bg-white dark:bg-gray-900 py-4 sm:py-6 drop-shadow-sm dark:text-white">
+    <nav className="bg-gradient-to-b from-gray-100 to-white dark:from-gray-800 dark:to-gray-900 py-4 sm:py-6 drop-shadow-sm dark:text-white">
       <Disclosure as="nav">
         {({ open }) => (
           <>
@@ -32,7 +32,7 @@ export default function Navbar(props) {
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
                   {/* Mobile menu button*/}
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <Disclosure.Button className="p-0.5 inline-flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-gray-300 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-300 dark:focus:ring-gray-200">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -63,7 +63,7 @@ export default function Navbar(props) {
                     {/*mobile logo begin*/}
                     <Link
                       href="/"
-                      className="flex sm:hidden h-14 w-14 absolute left-0 top-0 drop-shadow-lg bg-speechBlue  rounded-full border-white border-2  items-center justify-center text-white"
+                      className="flex sm:hidden h-14 w-14 absolute left-0 top-0 drop-shadow-lg bg-speechBlue shadow-md shadow-speechBlueDark/50 rounded-full border-white border-2  items-center justify-center text-white"
                     >
                       <ChatIcon className="h-7 w-7"></ChatIcon>
                     </Link>
@@ -91,31 +91,31 @@ export default function Navbar(props) {
 
                 <div className="md:pl-4 md:mr-2 flex-shrink-0 sm:ml-4 flex justify-self-end items-center select-none ">
                   <div className="ml-auto">
-                    {session && session.user ? (
-                      <div className="flex flex-row text-right text-xs sm:text-base">
-                        <div className=" flex-col mr-2 sm:mr-4 my-auto flex">
-                          <span className="dark:text-gray-200">
-                            {session.user.name}
-                          </span>
-                          <button
-                            className="text-xs sm:text-sm font-medium text-speechBlueDarker hover:text-speechBlue rounded-xl hover:scale-105 duration-150"
-                            onClick={() => signOut()}
-                          >
-                            Sign Out
-                          </button>
-                        </div>
-                        <div className="h-12 w-12 rounded-full overflow-hidden mr-4 bg-speechBlue hover:scale-105 duration-150">
-                          <img src={"" + session.user.image} alt="avatar" />
-                        </div>
+                    <div className="flex flex-row text-right text-xs sm:text-base">
+                      <div className=" flex-col mr-2 sm:mr-4 my-auto flex">
+                        <span className="dark:text-gray-200 text-sm sm:text-base">
+                          {session ? session.user.name : "Guest"}
+                        </span>
+
+                        <button
+                          className="text-xs sm:text-sm font-medium text-speechBlueDarker hover:text-speechBlue rounded-xl hover:scale-105 duration-150"
+                          onClick={session ? () => signOut() : () => signIn()}
+                        >
+                          Sign {session ? "Out" : "In"}
+                        </button>
                       </div>
-                    ) : (
-                      <button
-                        className="p-2 text-lg font-medium text-gray-500 hover:text-speechBlue sm:mb-1 mr-2 rounded-xl hover:scale-105 duration-150"
-                        onClick={() => signIn()}
-                      >
-                        Sign In
-                      </button>
-                    )}
+                      <div className=" shadow-md shadow-speechBlueDark/50 mr-4 rounded-full bg-white hover:scale-105 duration-150">
+                        <img
+                          src={
+                            session
+                              ? "" + session.user.image
+                              : "https://media.istockphoto.com/id/1131164548/vector/avatar-5.jpg?s=612x612&w=0&k=20&c=CK49ShLJwDxE4kiroCR42kimTuuhvuo2FH5y_6aSgEo="
+                          }
+                          alt="avatar"
+                          className="h-12 w-12  rounded-full overflow-hidden bg-speechBlue"
+                        />
+                      </div>
+                    </div>
                   </div>
                   <button
                     className="mr-9 sm:mr-0 flex bg-slate-300 dark:bg-slate-800 rounded-xl px-1 py-1 hover:bg-slate-400 dark:hover:bg-slate-700 dark:text-blue-500 text-white dark:hover:text-blue-400 hover:text-yellow-300 duration-150 ease-in-out "
